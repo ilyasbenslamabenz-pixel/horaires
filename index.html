@@ -183,7 +183,8 @@
         <div class="card" style="max-width:560px">
           <div class="field"><label for="d">Date</label><input type="date" id="d"></div>
           <div class="daybadge" id="dayBadge"><span class="dot" id="bDot"></span><span id="bTxt">—</span><span class="flag" id="bFlag" style="display:none"></span></div>
-          <div class="row2"><div class="field"><label for="start">Arrivée</label><input type="time" id="start" value="08:00"></div><div class="field"><label for="end">Départ</label><input type="time" id="end" value="17:00"></div></div>
+          <div class="row2"><div class="field"><label for="start">Arrivée</label><input type="time" id="start" value="08:00"></div><div class="field"><label for="end">Départ <span id="endAuto" style="color:var(--brand);font-weight:700;text-transform:none;letter-spacing:0">· auto</span></label><input type="time" id="end" value="17:00"></div></div>
+          <div class="hint" id="endHint" style="margin:-8px 0 14px">Départ calculé pour atteindre tes heures dues. Modifie-le si tu finis plus tard.</div>
           <div class="pause-box">
             <div class="lr"><label>Pause déjeuner</label><span class="pause-dur" id="pauseDur">—</span></div>
             <div class="row2"><div class="field" style="margin:0"><label for="pauseStart" class="sublbl">Départ pause</label><input type="time" id="pauseStart" value="12:00"></div><div class="field" style="margin:0"><label for="pauseEnd" class="sublbl">Retour</label><input type="time" id="pauseEnd" value="13:00"></div></div>
@@ -209,7 +210,7 @@
           <div class="hint">42h/sem = 8,4h/j sur 5 jours (base secteur social GE).</div>
         </div>
         <div class="card" style="max-width:620px"><div class="card-h"><span class="d"></span>Valeurs par défaut de saisie</div>
-          <div class="row2"><div class="field"><label for="defStart" class="sublbl">Arrivée</label><input type="time" id="defStart" value="08:00"></div><div class="field"><label for="defEnd" class="sublbl">Départ</label><input type="time" id="defEnd" value="17:00"></div></div>
+          <div class="row2"><div class="field"><label for="defStart" class="sublbl">Arrivée</label><input type="time" id="defStart" value="08:00"></div><div class="field"><label class="sublbl">Départ</label><input type="text" value="calculé auto" disabled style="text-align:center;color:var(--brand)"></div></div>
           <div class="row2"><div class="field"><label for="defPauseStart" class="sublbl">Départ pause</label><input type="time" id="defPauseStart" value="12:00"></div><div class="field"><label for="defPauseEnd" class="sublbl">Retour pause</label><input type="time" id="defPauseEnd" value="13:00"></div></div>
         </div>
         <div class="card" style="max-width:620px"><div class="card-h"><span class="d"></span>Seuils légaux (LTr)</div>
@@ -228,7 +229,7 @@
 <script>
 const KEY='badgheure_v1', SET='badgheure_set', PUNCH='badgheure_punch';
 let entries = load(KEY,[]);
-let settings = load(SET,{target:8.4,weekhours:42,maxWeek:45,restHours:11,defStart:'08:00',defEnd:'17:00',defPauseStart:'12:00',defPauseEnd:'13:00'});
+let settings = load(SET,{target:8.4,weekhours:42,maxWeek:45,restHours:11,defStart:'08:00',defPauseStart:'12:00',defPauseEnd:'13:00'});
 let punch = load(PUNCH,null);
 let weekOffset = 0, noPause = false;
 function load(k,def){try{return JSON.parse(localStorage.getItem(k))??def}catch{return def}}
@@ -303,19 +304,39 @@ document.getElementById('btnAdd').onclick=()=>{
   entries.push(e);save(KEY,entries);syncWeekTo(date);render();toast('Journée ajoutée');
   // réinitialiser l'état pause pour la prochaine saisie
   if(noPause){noPause=false;const ps=document.getElementById('pauseStart'),pe=document.getElementById('pauseEnd');ps.disabled=pe.disabled=false;document.getElementById('pauseToggle').textContent='Pas de pause ce jour';refreshPauseDur();}
+  const endEl=document.getElementById('end');delete endEl.dataset.manual;computeEnd();
   document.querySelector('.nav-item[data-view="histo"]').click();};
 function syncWeekTo(date){const t=new Date(date+'T00:00');const tm=new Date(t);tm.setDate(tm.getDate()-((t.getDay()+6)%7));tm.setHours(0,0,0,0);weekOffset=Math.round((tm-mondayOf(0))/(7*86400000))}
 function refreshPauseDur(){const d=document.getElementById('pauseDur');if(noPause){d.textContent='Aucune pause';d.style.color='var(--muted)';return}
   const m=pauseMinOf({pauseStart:document.getElementById('pauseStart').value,pauseEnd:document.getElementById('pauseEnd').value});d.textContent=m?fmtH(m):'—';d.style.color='var(--brand)'}
 ['pauseStart','pauseEnd'].forEach(id=>document.getElementById(id).addEventListener('input',()=>{document.getElementById(id).dataset.touched='1';refreshPauseDur()}));
-document.getElementById('pauseToggle').onclick=()=>{noPause=!noPause;const ps=document.getElementById('pauseStart'),pe=document.getElementById('pauseEnd');ps.disabled=pe.disabled=noPause;document.getElementById('pauseToggle').textContent=noPause?'Ajouter une pause':'Pas de pause ce jour';refreshPauseDur()};
+document.getElementById('pauseToggle').onclick=()=>{noPause=!noPause;const ps=document.getElementById('pauseStart'),pe=document.getElementById('pauseEnd');ps.disabled=pe.disabled=noPause;document.getElementById('pauseToggle').textContent=noPause?'Ajouter une pause':'Pas de pause ce jour';refreshPauseDur();computeEnd()};
 function updateDayBadge(){const ds=document.getElementById('d').value,dot=document.getElementById('bDot'),txt=document.getElementById('bTxt'),flag=document.getElementById('bFlag');
   if(!ds){txt.textContent='Choisis une date';dot.className='dot';flag.style.display='none';return}
   txt.textContent=new Date(ds+'T00:00').toLocaleDateString('fr-CH',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   const fn=ferieName(ds);if(fn){dot.className='dot fe';flag.className='flag fe';flag.style.display='';flag.textContent=fn}
   else if(isWeekend(ds)){dot.className='dot we';flag.className='flag we';flag.style.display='';flag.textContent='Week-end'}else{dot.className='dot';flag.style.display='none'}}
 document.getElementById('d').addEventListener('input',updateDayBadge);
-['start','end'].forEach(id=>document.getElementById(id).addEventListener('input',()=>document.getElementById(id).dataset.touched='1'));
+/* départ théorique = arrivée + heures dues + pause */
+function minToTime(m){m=((m%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(Math.round(m%60)).padStart(2,'0')}
+function computeEnd(){
+  const s=document.getElementById('start'),e=document.getElementById('end');
+  if(e.dataset.manual)return; // l'utilisateur a fixé le départ à la main : on ne touche plus
+  const pause=noPause?0:pauseMinOf({pauseStart:document.getElementById('pauseStart').value,pauseEnd:document.getElementById('pauseEnd').value});
+  const endMin=toMin(s.value)+settings.target*60+pause;
+  e.value=minToTime(endMin);
+  markEndAuto(false);
+}
+function markEndAuto(manual){
+  const tag=document.getElementById('endAuto');
+  if(manual){tag.textContent='· modifié';tag.style.color='var(--amber)';}
+  else{tag.textContent='· auto';tag.style.color='var(--brand)';}
+}
+// recalcul quand arrivée ou pause changent
+document.getElementById('start').addEventListener('input',computeEnd);
+['pauseStart','pauseEnd'].forEach(id=>document.getElementById(id).addEventListener('input',computeEnd));
+// si l'utilisateur édite le départ lui-même -> mode manuel
+document.getElementById('end').addEventListener('input',()=>{document.getElementById('end').dataset.manual='1';markEndAuto(true)});
 function refreshPunch(){
   const lbl=document.getElementById('punchLabel'),tm=document.getElementById('punchTimer');
   const bS=document.getElementById('btnStart'),bE=document.getElementById('btnStop'),bP=document.getElementById('btnPause');
@@ -336,11 +357,11 @@ document.getElementById('btnStop').onclick=()=>{if(!punch)return;const now=new D
   save(KEY,entries);punch=null;save(PUNCH,punch);weekOffset=0;render();refreshPunch();toast('Session enregistrée')};
 document.getElementById('prevWeek').onclick=()=>{weekOffset--;render()};
 document.getElementById('nextWeek').onclick=()=>{weekOffset++;render()};
-const numF=['target','weekhours','maxWeek','restHours'],txtF=['defStart','defEnd','defPauseStart','defPauseEnd'];
+const numF=['target','weekhours','maxWeek','restHours'],txtF=['defStart','defPauseStart','defPauseEnd'];
 numF.forEach(id=>{const el=document.getElementById(id);el.value=settings[id];el.oninput=()=>{settings[id]=+el.value||0;save(SET,settings);applyDefaults();render()}});
 txtF.forEach(id=>{const el=document.getElementById(id);el.value=settings[id];el.oninput=()=>{settings[id]=el.value;save(SET,settings);applyDefaults()}});
-function applyDefaults(){const s=document.getElementById('start'),e=document.getElementById('end'),ps=document.getElementById('pauseStart'),pe=document.getElementById('pauseEnd');
-  if(!s.dataset.touched)s.value=settings.defStart;if(!e.dataset.touched)e.value=settings.defEnd;if(!ps.dataset.touched)ps.value=settings.defPauseStart;if(!pe.dataset.touched)pe.value=settings.defPauseEnd;refreshPauseDur()}
+function applyDefaults(){const s=document.getElementById('start'),ps=document.getElementById('pauseStart'),pe=document.getElementById('pauseEnd');
+  if(!s.dataset.touched)s.value=settings.defStart;if(!ps.dataset.touched)ps.value=settings.defPauseStart;if(!pe.dataset.touched)pe.value=settings.defPauseEnd;refreshPauseDur();computeEnd()}
 document.getElementById('btnBackup').onclick=()=>{const b=new Blob([JSON.stringify({entries,settings},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='badgheure_'+iso(new Date())+'.json';a.click();toast('Sauvegarde exportée')};
 document.getElementById('btnRestore').onclick=()=>document.getElementById('fileRestore').click();
 document.getElementById('fileRestore').onchange=ev=>{const f=ev.target.files[0];if(!f)return;const r=new FileReader();
@@ -361,10 +382,9 @@ function tick(){const n=new Date();
   refreshPunch();}
 document.getElementById('d').value=iso(new Date());
 document.getElementById('start').value=settings.defStart;
-document.getElementById('end').value=settings.defEnd;
 document.getElementById('pauseStart').value=settings.defPauseStart;
 document.getElementById('pauseEnd').value=settings.defPauseEnd;
-updateDayBadge();refreshPauseDur();
+updateDayBadge();refreshPauseDur();computeEnd();
 setInterval(tick,1000);tick();render();
 </script>
 </body>
