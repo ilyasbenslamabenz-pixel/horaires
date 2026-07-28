@@ -127,6 +127,54 @@
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   .set-actions{display:flex;gap:10px;flex-wrap:wrap}
   .scrim{display:none;position:fixed;inset:0;background:rgba(23,27,46,.5);z-index:29}
+
+  /* Calendrier semaine */
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+  @media(max-width:760px){.cal-grid{grid-template-columns:1fr;gap:8px}}
+  .cal-day{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:12px;cursor:pointer;transition:.12s;min-height:118px;display:flex;flex-direction:column;position:relative}
+  .cal-day:hover{border-color:var(--brand);box-shadow:var(--shadow);transform:translateY(-2px)}
+  .cal-day.today{border-color:var(--brand);box-shadow:0 0 0 2px var(--brand-soft)}
+  .cal-day.we{background:#fafbfd}
+  .cal-day.fe{background:var(--amber-soft)}
+  .cal-dh{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px}
+  .cal-dh .wd{font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700}
+  .cal-dh .dn{font-size:1.15rem;font-weight:700;letter-spacing:-.02em}
+  .cal-day.fe .cal-dh .dn{color:var(--amber)}
+  .cal-net{font-size:1rem;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+  .cal-sub{font-size:.68rem;color:var(--muted);margin-top:auto}
+  .cal-empty{font-size:.7rem;color:var(--muted);opacity:.7;margin-top:auto}
+  .cal-fe-tag{font-size:.62rem;font-weight:700;color:var(--amber);line-height:1.1;margin-bottom:4px}
+  /* barre temporelle */
+  .tbar{height:8px;border-radius:5px;background:#eef0f6;position:relative;overflow:hidden;margin:6px 0}
+  .tbar .work{position:absolute;top:0;bottom:0;background:linear-gradient(90deg,#6366f1,#4f46e5);border-radius:5px}
+  .tbar .brk{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,#fbbf24,#fbbf24 3px,#f59e0b 3px,#f59e0b 6px)}
+  .cal-plus{position:absolute;top:8px;right:8px;width:20px;height:20px;border-radius:6px;background:var(--brand-soft);color:var(--brand);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;opacity:0;transition:.12s}
+  .cal-day:hover .cal-plus{opacity:1}
+  .cal-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:.74rem;color:var(--muted)}
+  .cal-legend span{display:inline-flex;align-items:center;gap:6px}
+  .cal-legend i{width:14px;height:8px;border-radius:3px;display:inline-block}
+
+  /* Récap saisie live */
+  .recap{background:linear-gradient(145deg,#f6f7fe,#eef0fe);border:1px solid var(--brand-soft);border-radius:13px;padding:14px 16px;margin-bottom:16px}
+  .recap-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .recap-top .rt-net{font-size:1.5rem;font-weight:800;color:var(--brand);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .recap-top .rt-lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+  .recap .tbar{height:12px;margin:8px 0 6px}
+  .recap-scale{display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted);font-variant-numeric:tabular-nums}
+  .recap-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .recap-chip{background:#fff;border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:.74rem;font-weight:600;color:var(--ink)}
+  .recap-chip b{color:var(--brand)}
+
+  /* stats détaillées */
+  .stat .sub2{font-size:.7rem;color:var(--muted);margin-top:3px;font-weight:500}
+  .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:640px){.detail-grid{grid-template-columns:1fr}}
+  .drow{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:.88rem}
+  .drow:last-child{border-bottom:none}
+  .drow .dk{color:var(--muted)}
+  .drow .dv{font-weight:700;font-variant-numeric:tabular-nums}
+  .seg{display:flex;height:26px;border-radius:8px;overflow:hidden;background:#eef0f6;font-size:.7rem;font-weight:700;color:#fff}
+  .seg div{display:flex;align-items:center;justify-content:center;min-width:0}
   @media(max-width:860px){
     .sidebar{position:fixed;left:0;top:0;z-index:30;transform:translateX(-100%);transition:transform .25s}
     .sidebar.open{transform:translateX(0)}
@@ -148,6 +196,7 @@
     <div class="nav-title">Opérationnel</div>
     <button class="nav-item active" data-view="dash"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13h8V3H3zM13 21h8v-6h-8zM13 3v8h8V3zM3 21h8v-4H3z"/></svg>Tableau de bord</button>
     <button class="nav-item" data-view="saisie"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Saisie</button>
+    <button class="nav-item" data-view="cal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Calendrier</button>
     <button class="nav-item" data-view="histo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18M7 14l4-4 3 3 5-6"/></svg>Historique</button>
     <div class="nav-title">Réglages</div>
     <button class="nav-item" data-view="params"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Paramètres</button>
@@ -176,6 +225,10 @@
           </div>
         </section>
         <div class="stats" id="stats"></div>
+        <div class="card">
+          <div class="card-h"><span class="d"></span>Détails</div>
+          <div class="detail-grid" id="dashDetail"></div>
+        </div>
         <div class="card"><div class="card-h"><span class="d"></span>Conformité (LTr)</div><div id="alerts"></div></div>
       </section>
       <section class="view" id="view-saisie">
@@ -192,7 +245,29 @@
           </div>
           <div class="field"><label for="type">Type de journée</label><select id="type"><option value="travail">Travail</option><option value="teletravail">Télétravail</option><option value="conges">Congé payé</option><option value="maladie">Maladie</option><option value="ferie">Férié</option></select></div>
           <div class="field"><label for="note">Note (optionnel)</label><input type="text" id="note" placeholder="ex. Inserres, Troinex…"></div>
+          <div class="recap" id="recap">
+            <div class="recap-top"><span class="rt-lbl">Temps net de la journée</span><span class="rt-net" id="recapNet">—</span></div>
+            <div class="tbar" id="recapBar"></div>
+            <div class="recap-scale"><span id="recapStart">—</span><span id="recapEnd">—</span></div>
+            <div class="recap-chips" id="recapChips"></div>
+          </div>
           <button class="btn btn-primary btn-full" id="btnAdd">Ajouter la journée</button>
+        </div>
+      </section>
+      <section class="view" id="view-cal">
+        <div class="page-head"><h1><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Calendrier de la semaine</h1><p>Vue visuelle de tes journées. Clique un jour pour le saisir ou le modifier.</p></div>
+        <div class="card">
+          <div class="toolbar"><div class="weeksel"><button id="calPrev">‹</button><span id="calLabel">Semaine</span><button id="calNext">›</button></div><div class="spacer"></div><button class="chip" id="calToday">Aujourd'hui</button></div>
+          <div class="cal-grid" id="calGrid"></div>
+          <div class="cal-legend">
+            <span><i style="background:linear-gradient(90deg,#6366f1,#4f46e5)"></i>Travail</span>
+            <span><i style="background:repeating-linear-gradient(45deg,#fbbf24,#fbbf24 3px,#f59e0b 3px,#f59e0b 6px)"></i>Pause</span>
+            <span><i style="background:var(--amber-soft);border:1px solid var(--amber)"></i>Férié</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-h"><span class="d"></span>Détail de la semaine</div>
+          <div class="detail-grid" id="calDetail"></div>
         </div>
       </section>
       <section class="view" id="view-histo">
@@ -272,10 +347,119 @@ function render(){
     tb.appendChild(tr);});
   tb.querySelectorAll('.del').forEach(b=>b.onclick=()=>{entries=entries.filter(x=>x.id!=b.dataset.id);save(KEY,entries);render();toast('Journée supprimée')});
   const days=wk.filter(e=>['travail','teletravail'].includes(e.type)).length;const ot=Math.max(0,totSolde);
-  document.getElementById('stats').innerHTML=stat(ICO.clock,'Net semaine',fmtH(totNet))+stat(ICO.bal,'Solde',(totSolde>=0?'+':'')+fmtH(totSolde),totSolde>=0?'pos':'neg')+stat(ICO.cal,'Jours travaillés',days)+stat(ICO.up,'Heures sup.',fmtH(ot));
+  // cumuls mois & année (référence = semaine affichée)
+  const ref=mondayOf(weekOffset);
+  const monthNet=sumNet(e=>e.date.slice(0,7)===iso(ref).slice(0,7));
+  const yearNet=sumNet(e=>e.date.slice(0,4)===iso(ref).slice(0,4));
+  const avgDay=days?fmtH(totNet/days):'—';
+  document.getElementById('stats').innerHTML=
+    stat(ICO.clock,'Net semaine',fmtH(totNet),'', days?('moy. '+avgDay+'/jour'):'')+
+    stat(ICO.bal,'Solde semaine',(totSolde>=0?'+':'')+fmtH(totSolde),totSolde>=0?'pos':'neg', 'objectif '+fmtH(days*settings.target*60))+
+    stat(ICO.cal,'Cumul du mois',fmtH(monthNet),'', cap(ref.toLocaleDateString('fr-CH',{month:'long'})))+
+    stat(ICO.up,'Cumul '+iso(ref).slice(0,4),fmtH(yearNet),'', 'année en cours');
+  renderDashDetail(wk,totNet,totSolde,days);
   renderAlerts(wk,totNet);
+  renderCal();
 }
-function stat(ico,k,v,cls=''){return `<div class="stat"><div class="k">${ico}${k}</div><div class="v ${cls}">${v}</div></div>`}
+function sumNet(pred){return entries.filter(pred).reduce((s,e)=>s+net(e),0)}
+function stat(ico,k,v,cls='',sub=''){return `<div class="stat"><div class="k">${ico}${k}</div><div class="v ${cls}">${v}</div>${sub?`<div class="sub2">${sub}</div>`:''}</div>`}
+function drow(k,v,cls=''){return `<div class="drow"><span class="dk">${k}</span><span class="dv ${cls}">${v}</span></div>`}
+/* ----- Calendrier ----- */
+function dayBar(e){
+  // barre 0h→24h ; travail plein, pause hachurée
+  const dayMin=1440;
+  if(!['travail','teletravail'].includes(e.type))return '<div class="tbar"></div>';
+  let s=toMin(e.start),en=toMin(e.end);if(en<s)en+=dayMin;
+  const wl=Math.min(100,(s/dayMin)*100), ww=Math.min(100-wl,((en-s)/dayMin)*100);
+  let brk='';
+  if(e.pauseStart&&e.pauseEnd){let ps=toMin(e.pauseStart),pe=toMin(e.pauseEnd);if(pe<ps)pe+=dayMin;
+    const bl=(ps/dayMin)*100, bw=((pe-ps)/dayMin)*100;
+    brk=`<div class="brk" style="left:${bl}%;width:${bw}%"></div>`;}
+  return `<div class="tbar"><div class="work" style="left:${wl}%;width:${ww}%"></div>${brk}</div>`;
+}
+function renderCal(){
+  const grid=document.getElementById('calGrid');if(!grid)return;
+  const mon=mondayOf(weekOffset),sun=addDays(mon,6);
+  document.getElementById('calLabel').textContent=mon.toLocaleDateString('fr-CH',{day:'2-digit',month:'short'})+' – '+sun.toLocaleDateString('fr-CH',{day:'2-digit',month:'short'});
+  const todayISO=iso(new Date());
+  let html='';
+  for(let i=0;i<7;i++){
+    const d=addDays(mon,i),ds=iso(d);
+    const e=entries.find(x=>x.date===ds);
+    const fn=ferieName(ds),we=isWeekend(ds);
+    let cls='cal-day';if(ds===todayISO)cls+=' today';if(we)cls+=' we';if(fn)cls+=' fe';
+    let body;
+    if(e){
+      const n=net(e),solde=n-settings.target*60;
+      const worked=['travail','teletravail'].includes(e.type);
+      body=(fn?`<div class="cal-fe-tag">${fn}</div>`:'')+
+        `<div class="cal-net">${fmtH(n)}</div>`+dayBar(e)+
+        `<div class="cal-sub">${worked?e.start+'–'+e.end:({conges:'Congé',maladie:'Maladie',ferie:'Férié'}[e.type])} · <b style="color:${solde>=0?'var(--green)':'var(--red)'}">${solde>=0?'+':''}${fmtH(solde)}</b></div>`;
+    }else{
+      body=(fn?`<div class="cal-fe-tag">${fn}</div>`:'')+`<div class="cal-empty">${we?'Week-end':'Aucune saisie'}</div>`;
+    }
+    html+=`<div class="${cls}" data-date="${ds}"><div class="cal-plus">+</div><div class="cal-dh"><span class="wd">${d.toLocaleDateString('fr-CH',{weekday:'short'})}</span><span class="dn">${d.getDate()}</span></div>${body}</div>`;
+  }
+  grid.innerHTML=html;
+  grid.querySelectorAll('.cal-day').forEach(c=>c.onclick=()=>{
+    document.getElementById('d').value=c.dataset.date;updateDayBadge();
+    // pré-remplir depuis l'entrée existante si présente
+    const ex=entries.find(x=>x.date===c.dataset.date);
+    if(ex&&['travail','teletravail'].includes(ex.type)){
+      document.getElementById('start').value=ex.start;document.getElementById('start').dataset.touched='1';
+      document.getElementById('end').value=ex.end;document.getElementById('end').dataset.manual='1';markEndAuto(true);
+      if(ex.pauseStart){document.getElementById('pauseStart').value=ex.pauseStart;document.getElementById('pauseStart').dataset.touched='1';}
+      if(ex.pauseEnd){document.getElementById('pauseEnd').value=ex.pauseEnd;document.getElementById('pauseEnd').dataset.touched='1';}
+    }
+    refreshPauseDur();refreshRecap();
+    document.querySelector('.nav-item[data-view="saisie"]').click();
+    toast('Journée du '+c.dataset.date.slice(8)+'.'+c.dataset.date.slice(5,7)+' prête à saisir');
+  });
+  renderCalDetail();
+}
+function renderCalDetail(){
+  const box=document.getElementById('calDetail');if(!box)return;
+  const wk=weekEntries();const worked=wk.filter(e=>['travail','teletravail'].includes(e.type));
+  const totNet=wk.reduce((s,e)=>s+net(e),0);
+  const totPause=worked.reduce((s,e)=>s+pauseMinOf(e),0);
+  const earliest=worked.reduce((m,e)=>Math.min(m,toMin(e.start)),1440);
+  const latest=worked.reduce((m,e)=>{let en=toMin(e.end);if(en<toMin(e.start))en+=1440;return Math.max(m,en)},0);
+  const solde=totNet-worked.length*settings.target*60;
+  box.innerHTML=
+    `<div>${drow('Total net semaine',fmtH(totNet))}${drow('Solde',(solde>=0?'+':'')+fmtH(solde),solde>=0?'net pos':'net neg')}${drow('Total pauses',fmtH(totPause))}</div>`+
+    `<div>${drow('Jours saisis',worked.length)}${drow('Arrivée la + tôt',worked.length?minToTime(earliest):'—')}${drow('Départ le + tard',worked.length?minToTime(latest):'—')}</div>`;
+}
+/* ----- Récap live saisie ----- */
+function refreshRecap(){
+  const box=document.getElementById('recap');if(!box)return;
+  const type=document.getElementById('type').value;
+  const s=document.getElementById('start').value,en=document.getElementById('end').value;
+  const pause=noPause?0:pauseMinOf({pauseStart:document.getElementById('pauseStart').value,pauseEnd:document.getElementById('pauseEnd').value});
+  const e={type,start:s,end:en,pauseStart:noPause?'':document.getElementById('pauseStart').value,pauseEnd:noPause?'':document.getElementById('pauseEnd').value};
+  const n=net(e),solde=n-settings.target*60;
+  document.getElementById('recapNet').textContent=fmtH(n);
+  document.getElementById('recapBar').innerHTML=dayBar(e).replace('<div class="tbar">','').replace(/<\/div>$/,'');
+  document.getElementById('recapStart').textContent=['travail','teletravail'].includes(type)?s:'—';
+  document.getElementById('recapEnd').textContent=['travail','teletravail'].includes(type)?en:'—';
+  const chips=document.getElementById('recapChips');
+  chips.innerHTML=
+    `<span class="recap-chip">Pause <b>${pause?fmtH(pause):'0h00'}</b></span>`+
+    `<span class="recap-chip">Solde <b style="color:${solde>=0?'var(--green)':'var(--red)'}">${solde>=0?'+':''}${fmtH(solde)}</b></span>`+
+    `<span class="recap-chip">Dues <b>${fmtH(settings.target*60)}</b></span>`;
+}
+function renderDashDetail(wk,totNet,totSolde,days){
+  const worked=wk.filter(e=>['travail','teletravail'].includes(e.type));
+  const totPause=worked.reduce((s,e)=>s+pauseMinOf(e),0);
+  const totBrut=totNet+totPause;
+  const longest=worked.reduce((m,e)=>Math.max(m,net(e)),0);
+  const tt=wk.filter(e=>e.type==='teletravail').length;
+  const abs=wk.filter(e=>['conges','maladie'].includes(e.type)).length;
+  const left=document.getElementById('dashDetail');
+  const pausePct=totBrut?Math.round(totPause/totBrut*100):0;
+  left.innerHTML=
+    `<div>${drow('Temps de présence brut',fmtH(totBrut))}${drow('dont pause',fmtH(totPause)+' ('+pausePct+'%)')}${drow('Journée la plus longue',fmtH(longest))}</div>`+
+    `<div>${drow('Jours travaillés',days)}${drow('dont télétravail',tt)}${drow('Congé / maladie',abs)}</div>`;
+}
 function renderAlerts(wk,totNet){
   const box=document.getElementById('alerts');const al=[];
   if(totNet>settings.maxWeek*60)al.push(['bad','⚠','Semaine à '+fmtH(totNet)+' : dépassement du maximum de '+settings.maxWeek+'h/sem (LTr).']);
@@ -321,11 +505,12 @@ document.getElementById('d').addEventListener('input',updateDayBadge);
 function minToTime(m){m=((m%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(Math.round(m%60)).padStart(2,'0')}
 function computeEnd(){
   const s=document.getElementById('start'),e=document.getElementById('end');
-  if(e.dataset.manual)return; // l'utilisateur a fixé le départ à la main : on ne touche plus
-  const pause=noPause?0:pauseMinOf({pauseStart:document.getElementById('pauseStart').value,pauseEnd:document.getElementById('pauseEnd').value});
-  const endMin=toMin(s.value)+settings.target*60+pause;
-  e.value=minToTime(endMin);
-  markEndAuto(false);
+  if(!e.dataset.manual){
+    const pause=noPause?0:pauseMinOf({pauseStart:document.getElementById('pauseStart').value,pauseEnd:document.getElementById('pauseEnd').value});
+    e.value=minToTime(toMin(s.value)+settings.target*60+pause);
+    markEndAuto(false);
+  }
+  refreshRecap();
 }
 function markEndAuto(manual){
   const tag=document.getElementById('endAuto');
@@ -336,7 +521,8 @@ function markEndAuto(manual){
 document.getElementById('start').addEventListener('input',computeEnd);
 ['pauseStart','pauseEnd'].forEach(id=>document.getElementById(id).addEventListener('input',computeEnd));
 // si l'utilisateur édite le départ lui-même -> mode manuel
-document.getElementById('end').addEventListener('input',()=>{document.getElementById('end').dataset.manual='1';markEndAuto(true)});
+document.getElementById('end').addEventListener('input',()=>{document.getElementById('end').dataset.manual='1';markEndAuto(true);refreshRecap()});
+document.getElementById('type').addEventListener('change',refreshRecap);
 function refreshPunch(){
   const lbl=document.getElementById('punchLabel'),tm=document.getElementById('punchTimer');
   const bS=document.getElementById('btnStart'),bE=document.getElementById('btnStop'),bP=document.getElementById('btnPause');
@@ -357,6 +543,9 @@ document.getElementById('btnStop').onclick=()=>{if(!punch)return;const now=new D
   save(KEY,entries);punch=null;save(PUNCH,punch);weekOffset=0;render();refreshPunch();toast('Session enregistrée')};
 document.getElementById('prevWeek').onclick=()=>{weekOffset--;render()};
 document.getElementById('nextWeek').onclick=()=>{weekOffset++;render()};
+document.getElementById('calPrev').onclick=()=>{weekOffset--;render()};
+document.getElementById('calNext').onclick=()=>{weekOffset++;render()};
+document.getElementById('calToday').onclick=()=>{weekOffset=0;render()};
 const numF=['target','weekhours','maxWeek','restHours'],txtF=['defStart','defPauseStart','defPauseEnd'];
 numF.forEach(id=>{const el=document.getElementById(id);el.value=settings[id];el.oninput=()=>{settings[id]=+el.value||0;save(SET,settings);applyDefaults();render()}});
 txtF.forEach(id=>{const el=document.getElementById(id);el.value=settings[id];el.oninput=()=>{settings[id]=el.value;save(SET,settings);applyDefaults()}});
