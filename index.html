@@ -6,11 +6,11 @@
 <title>Badg'heure — Mes horaires</title>
 <style>
   :root{
-    --bg:#f4f6fb;--panel:#ffffff;--nav:#171b2e;--nav-hover:#232847;--nav-active:#4f46e5;
-    --nav-text:#a9afc9;--nav-title:#6b7196;--ink:#1a1f36;--muted:#6b7290;--line:#e6e9f2;
-    --brand:#4f46e5;--brand-soft:#eef0fe;--green:#16a34a;--green-soft:#e9f7ef;
-    --amber:#d97706;--amber-soft:#fdf3e7;--red:#dc2626;--red-soft:#fdecec;--cyan:#0891b2;
-    --r:16px;--shadow:0 1px 2px rgba(23,27,46,.04),0 6px 20px rgba(23,27,46,.06);
+    --bg:#eef2f7;--panel:#ffffff;--nav:#0d1b2a;--nav-hover:#1a2b3d;--nav-active:#0891b2;
+    --nav-text:#8fa3b8;--nav-title:#5a7085;--ink:#0e1a2b;--muted:#5d6b7d;--line:#dbe2ea;
+    --brand:#0e7490;--brand-soft:#dcf2f7;--green:#16a34a;--green-soft:#e9f7ef;
+    --amber:#d97706;--amber-soft:#fdf3e7;--red:#dc2626;--red-soft:#fdecec;--cyan:#06b6d4;
+    --r:16px;--shadow:0 1px 2px rgba(14,26,43,.05),0 6px 20px rgba(14,26,43,.08);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%}
@@ -18,7 +18,7 @@
   .app{display:flex;min-height:100vh}
   .sidebar{width:250px;background:var(--nav);color:var(--nav-text);flex:none;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
   .side-brand{display:flex;align-items:center;gap:11px;padding:20px 20px 22px}
-  .side-brand .logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(150deg,#6366f1,#4f46e5);display:flex;align-items:center;justify-content:center;flex:none}
+  .side-brand .logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(150deg,#06b6d4,#0e7490);display:flex;align-items:center;justify-content:center;flex:none}
   .side-brand .logo svg{width:20px;height:20px;color:#fff}
   .side-brand .bt{font-weight:700;color:#fff;font-size:1.02rem;letter-spacing:-.01em;line-height:1.1}
   .side-brand .bs{font-size:.72rem;color:var(--nav-title)}
@@ -59,12 +59,12 @@
   .stat .k svg{width:14px;height:14px}
   .stat .v{font-size:1.55rem;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:6px}
   .stat .v.pos{color:var(--green)}.stat .v.neg{color:var(--red)}
-  .punch{background:linear-gradient(145deg,#1e2340,#4338ca);color:#fff;border:none}
-  .punch .card-h{color:rgba(255,255,255,.6)}.punch .card-h .d{background:#a5b4fc}
+  .punch{background:linear-gradient(145deg,#0d1b2a,#0e7490);color:#fff;border:none}
+  .punch .card-h{color:rgba(255,255,255,.6)}.punch .card-h .d{background:#67e8f9}
   .punch-day{display:flex;align-items:baseline;gap:12px;margin-bottom:16px;flex-wrap:wrap}
   .punch-day .n{font-size:2.4rem;font-weight:800;line-height:1;letter-spacing:-.03em}
   .punch-day .t{font-size:.95rem;color:rgba(255,255,255,.8);text-transform:capitalize}
-  .punch-day .pill{font-size:.68rem;font-weight:700;padding:3px 11px;border-radius:20px;background:#fbbf24;color:#3730a3}
+  .punch-day .pill{font-size:.68rem;font-weight:700;padding:3px 11px;border-radius:20px;background:#fbbf24;color:#0d1b2a}
   .punch-day .pill.we{background:rgba(255,255,255,.18);color:#fff}
   .punch-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
   .punch-state b{display:block;font-size:1.6rem;font-variant-numeric:tabular-nums;font-weight:700;letter-spacing:-.01em}
@@ -72,9 +72,9 @@
   .punch-btns{display:flex;gap:10px;flex-wrap:wrap}
   .btn{border:none;border-radius:11px;padding:12px 22px;font-size:.92rem;font-weight:600;cursor:pointer;font-family:inherit;transition:.1s;display:inline-flex;align-items:center;gap:7px}
   .btn:active{transform:translateY(1px)}.btn svg{width:17px;height:17px}
-  .btn-primary{background:var(--brand);color:#fff}.btn-primary:hover{background:#4338ca}
+  .btn-primary{background:var(--brand);color:#fff}.btn-primary:hover{background:#0c5c73}
   .btn-go{background:#22c55e;color:#fff}.btn-stop{background:#f43f5e;color:#fff}
-  .btn-amber{background:#fbbf24;color:#3730a3}
+  .btn-amber{background:#fbbf24;color:#0d1b2a}
   .btn-light{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.25)}
   .btn-full{width:100%;justify-content:center;margin-top:6px}
   .chip{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:9px 14px;font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit;color:var(--ink);display:inline-flex;align-items:center;gap:6px}
@@ -93,10 +93,32 @@
   .daybadge .flag{margin-left:auto;font-size:.7rem;font-weight:700;padding:2px 10px;border-radius:20px;text-transform:none}
   .daybadge .flag.we{background:#e5e7eb;color:var(--muted)}.daybadge .flag.fe{background:var(--amber-soft);color:var(--amber)}
   .pause-box{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fbfbfe;margin-bottom:14px}
-  .pause-box .lr{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+  .pause-box .lr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
   .pause-box .lr label{margin:0}
-  .pause-dur{font-size:.8rem;font-weight:700;color:var(--brand);font-variant-numeric:tabular-nums}
-  .pause-toggle{font-size:.74rem;color:var(--muted);cursor:pointer;text-decoration:underline;background:none;border:none;font-family:inherit;padding:0;margin-top:9px}
+  .pause-dur{font-size:.82rem;font-weight:700;color:var(--brand);font-variant-numeric:tabular-nums}
+  .pausebtns{display:flex;gap:7px;flex-wrap:wrap}
+  .pausebtn{flex:1;min-width:52px;border:1px solid var(--line);background:#fff;border-radius:9px;padding:10px 6px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit;color:var(--ink);transition:.12s;font-variant-numeric:tabular-nums}
+  .pausebtn:hover{border-color:var(--brand);color:var(--brand)}
+  .pausebtn.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .pausebtn.custom{flex:1.2}
+  .pause-custom{display:none;margin-top:10px}
+  .pause-custom.show{display:block}
+  /* Modale */
+  .modal-scrim{display:none;position:fixed;inset:0;background:rgba(23,27,46,.5);z-index:70;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(2px)}
+  .modal-scrim.show{display:flex}
+  .modal{background:var(--panel);border-radius:18px;padding:24px;width:min(400px,100%);box-shadow:0 20px 50px rgba(23,27,46,.3)}
+  .modal h3{font-size:1.2rem;letter-spacing:-.02em;margin-bottom:6px}
+  .modal-sub{font-size:.88rem;color:var(--muted);margin-bottom:18px}
+  .modal label{font-size:.76rem;font-weight:600;color:var(--muted)}
+  .modal-actions{display:flex;gap:10px;margin-top:18px}
+  .modal-actions .btn{flex:1;justify-content:center}
+  .btn-light-2{background:#eef0f4;color:var(--ink)}
+  .btn-light-2:hover{background:#e2e6ee}
+  /* Layout fusionné dashboard */
+  .dash-cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:18px;align-items:start}
+  @media(max-width:900px){.dash-cols{grid-template-columns:1fr}}
+  .dash-cols .card{margin-bottom:0}
+  .dash-right{display:flex;flex-direction:column;gap:18px}
   .alert{display:flex;gap:11px;align-items:flex-start;font-size:.85rem;padding:12px 15px;border-radius:12px;border:1px solid;margin-bottom:10px}
   .alert.warn{background:var(--amber-soft);border-color:#f0d19a;color:#92500a}
   .alert.bad{background:var(--red-soft);border-color:#f0b4b4;color:#991b1b}
@@ -146,7 +168,7 @@
   .cal-fe-tag{font-size:.62rem;font-weight:700;color:var(--amber);line-height:1.1;margin-bottom:4px}
   /* barre temporelle */
   .tbar{height:8px;border-radius:5px;background:#eef0f6;position:relative;overflow:hidden;margin:6px 0}
-  .tbar .work{position:absolute;top:0;bottom:0;background:linear-gradient(90deg,#6366f1,#4f46e5);border-radius:5px}
+  .tbar .work{position:absolute;top:0;bottom:0;background:linear-gradient(90deg,#22d3ee,#0e7490);border-radius:5px}
   .tbar .brk{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,#fbbf24,#fbbf24 3px,#f59e0b 3px,#f59e0b 6px)}
   .cal-plus{position:absolute;top:8px;right:8px;width:20px;height:20px;border-radius:6px;background:var(--brand-soft);color:var(--brand);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;opacity:0;transition:.12s}
   .cal-day:hover .cal-plus{opacity:1}
@@ -195,7 +217,6 @@
     </div>
     <div class="nav-title">Opérationnel</div>
     <button class="nav-item active" data-view="dash"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13h8V3H3zM13 21h8v-6h-8zM13 3v8h8V3zM3 21h8v-4H3z"/></svg>Tableau de bord</button>
-    <button class="nav-item" data-view="saisie"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Saisie</button>
     <button class="nav-item" data-view="cal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Calendrier</button>
     <button class="nav-item" data-view="histo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18M7 14l4-4 3 3 5-6"/></svg>Historique</button>
     <div class="nav-title">Réglages</div>
@@ -211,7 +232,7 @@
     </div>
     <div class="content">
       <section class="view active" id="view-dash">
-        <div class="page-head"><h1><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13h8V3H3zM13 21h8v-6h-8zM13 3v8h8V3zM3 21h8v-4H3z"/></svg>Tableau de bord</h1><p>Vue de la semaine en cours : temps travaillé, solde et conformité au droit du travail.</p></div>
+        <div class="page-head"><h1><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13h8V3H3zM13 21h8v-6h-8zM13 3v8h8V3zM3 21h8v-4H3z"/></svg>Tableau de bord</h1><p>Pointe, saisis ta journée et suis ta semaine — tout au même endroit.</p></div>
         <section class="card punch">
           <div class="card-h"><span class="d"></span>Pointer maintenant</div>
           <div class="punch-day"><span class="n" id="pdN">—</span><span class="t" id="pdT">—</span><span class="pill" id="pdP" style="display:none"></span></div>
@@ -219,39 +240,53 @@
             <div class="punch-state"><b id="punchTimer">—</b><span id="punchLabel">Pas de session en cours</span></div>
             <div class="punch-btns">
               <button class="btn btn-go" id="btnStart">Démarrer</button>
-              <button class="btn btn-light" id="btnPause" style="display:none">Pause</button>
               <button class="btn btn-stop" id="btnStop" style="display:none">Arrêter</button>
             </div>
           </div>
         </section>
-        <div class="stats" id="stats"></div>
-        <div class="card">
-          <div class="card-h"><span class="d"></span>Détails</div>
-          <div class="detail-grid" id="dashDetail"></div>
-        </div>
-        <div class="card"><div class="card-h"><span class="d"></span>Conformité (LTr)</div><div id="alerts"></div></div>
-      </section>
-      <section class="view" id="view-saisie">
-        <div class="page-head"><h1><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Saisie manuelle</h1><p>Ajoute une journée : arrivée, départ et heures de pause. La durée se calcule seule.</p></div>
-        <div class="card" style="max-width:560px">
-          <div class="field"><label for="d">Date</label><input type="date" id="d"></div>
-          <div class="daybadge" id="dayBadge"><span class="dot" id="bDot"></span><span id="bTxt">—</span><span class="flag" id="bFlag" style="display:none"></span></div>
-          <div class="row2"><div class="field"><label for="start">Arrivée</label><input type="time" id="start" value="08:00"></div><div class="field"><label for="end">Départ <span id="endAuto" style="color:var(--brand);font-weight:700;text-transform:none;letter-spacing:0">· auto</span></label><input type="time" id="end" value="17:00"></div></div>
-          <div class="hint" id="endHint" style="margin:-8px 0 14px">Départ calculé pour atteindre tes heures dues. Modifie-le si tu finis plus tard.</div>
-          <div class="pause-box">
-            <div class="lr"><label>Pause déjeuner</label><span class="pause-dur" id="pauseDur">—</span></div>
-            <div class="row2"><div class="field" style="margin:0"><label for="pauseStart" class="sublbl">Départ pause</label><input type="time" id="pauseStart" value="12:00"></div><div class="field" style="margin:0"><label for="pauseEnd" class="sublbl">Retour</label><input type="time" id="pauseEnd" value="13:00"></div></div>
-            <button class="pause-toggle" id="pauseToggle" type="button">Pas de pause ce jour</button>
+
+        <div class="dash-cols">
+          <!-- Colonne gauche : saisie -->
+          <div class="card">
+            <div class="card-h"><span class="d"></span>Saisir une journée</div>
+            <div class="field"><label for="d">Date</label><input type="date" id="d"></div>
+            <div class="daybadge" id="dayBadge"><span class="dot" id="bDot"></span><span id="bTxt">—</span><span class="flag" id="bFlag" style="display:none"></span></div>
+            <div class="row2"><div class="field"><label for="start">Arrivée</label><input type="time" id="start" value="08:00"></div><div class="field"><label for="end">Départ <span id="endAuto" style="color:var(--brand);font-weight:700;text-transform:none;letter-spacing:0">· auto</span></label><input type="time" id="end" value="17:00"></div></div>
+            <div class="hint" id="endHint" style="margin:-8px 0 14px">Départ calculé pour atteindre tes heures dues. Modifie-le si tu finis plus tard.</div>
+            <div class="pause-box">
+              <div class="lr"><label>Pause</label><span class="pause-dur" id="pauseDur">1h00</span></div>
+              <div class="pausebtns" id="pauseBtns">
+                <button type="button" class="pausebtn" data-min="0">0</button>
+                <button type="button" class="pausebtn" data-min="30">30 min</button>
+                <button type="button" class="pausebtn" data-min="45">45 min</button>
+                <button type="button" class="pausebtn on" data-min="60">60 min</button>
+                <button type="button" class="pausebtn custom" data-min="-1">Autre…</button>
+              </div>
+              <div class="pause-custom" id="pauseCustom">
+                <label for="pauseMin" class="sublbl">Durée personnalisée (minutes)</label>
+                <input type="number" id="pauseMin" value="60" min="0" step="5">
+              </div>
+            </div>
+            <div class="field"><label for="type">Type de journée</label><select id="type"><option value="travail">Travail</option><option value="teletravail">Télétravail</option><option value="conges">Congé payé</option><option value="maladie">Maladie</option><option value="ferie">Férié</option></select></div>
+            <div class="field"><label for="note">Note (optionnel)</label><input type="text" id="note" placeholder="ex. Inserres, Troinex…"></div>
+            <div class="recap" id="recap">
+              <div class="recap-top"><span class="rt-lbl">Temps net de la journée</span><span class="rt-net" id="recapNet">—</span></div>
+              <div class="tbar" id="recapBar"></div>
+              <div class="recap-scale"><span id="recapStart">—</span><span id="recapEnd">—</span></div>
+              <div class="recap-chips" id="recapChips"></div>
+            </div>
+            <button class="btn btn-primary btn-full" id="btnAdd">Ajouter la journée</button>
           </div>
-          <div class="field"><label for="type">Type de journée</label><select id="type"><option value="travail">Travail</option><option value="teletravail">Télétravail</option><option value="conges">Congé payé</option><option value="maladie">Maladie</option><option value="ferie">Férié</option></select></div>
-          <div class="field"><label for="note">Note (optionnel)</label><input type="text" id="note" placeholder="ex. Inserres, Troinex…"></div>
-          <div class="recap" id="recap">
-            <div class="recap-top"><span class="rt-lbl">Temps net de la journée</span><span class="rt-net" id="recapNet">—</span></div>
-            <div class="tbar" id="recapBar"></div>
-            <div class="recap-scale"><span id="recapStart">—</span><span id="recapEnd">—</span></div>
-            <div class="recap-chips" id="recapChips"></div>
+
+          <!-- Colonne droite : suivi de la semaine -->
+          <div class="dash-right">
+            <div class="stats" id="stats"></div>
+            <div class="card">
+              <div class="card-h"><span class="d"></span>Détails</div>
+              <div class="detail-grid" id="dashDetail"></div>
+            </div>
+            <div class="card"><div class="card-h"><span class="d"></span>Conformité (LTr)</div><div id="alerts"></div></div>
           </div>
-          <button class="btn btn-primary btn-full" id="btnAdd">Ajouter la journée</button>
         </div>
       </section>
       <section class="view" id="view-cal">
@@ -260,7 +295,7 @@
           <div class="toolbar"><div class="weeksel"><button id="calPrev">‹</button><span id="calLabel">Semaine</span><button id="calNext">›</button></div><div class="spacer"></div><button class="chip" id="calToday">Aujourd'hui</button></div>
           <div class="cal-grid" id="calGrid"></div>
           <div class="cal-legend">
-            <span><i style="background:linear-gradient(90deg,#6366f1,#4f46e5)"></i>Travail</span>
+            <span><i style="background:linear-gradient(90deg,#22d3ee,#0e7490)"></i>Travail</span>
             <span><i style="background:repeating-linear-gradient(45deg,#fbbf24,#fbbf24 3px,#f59e0b 3px,#f59e0b 6px)"></i>Pause</span>
             <span><i style="background:var(--amber-soft);border:1px solid var(--amber)"></i>Férié</span>
           </div>
@@ -285,8 +320,8 @@
           <div class="hint">42h/sem = 8,4h/j sur 5 jours (base secteur social GE).</div>
         </div>
         <div class="card" style="max-width:620px"><div class="card-h"><span class="d"></span>Valeurs par défaut de saisie</div>
-          <div class="row2"><div class="field"><label for="defStart" class="sublbl">Arrivée</label><input type="time" id="defStart" value="08:00"></div><div class="field"><label class="sublbl">Départ</label><input type="text" value="calculé auto" disabled style="text-align:center;color:var(--brand)"></div></div>
-          <div class="row2"><div class="field"><label for="defPauseStart" class="sublbl">Départ pause</label><input type="time" id="defPauseStart" value="12:00"></div><div class="field"><label for="defPauseEnd" class="sublbl">Retour pause</label><input type="time" id="defPauseEnd" value="13:00"></div></div>
+          <div class="row2"><div class="field"><label for="defStart" class="sublbl">Arrivée</label><input type="time" id="defStart" value="08:00"></div><div class="field"><label for="defPauseMin" class="sublbl">Pause (min)</label><input type="number" id="defPauseMin" value="60" min="0" step="5"></div></div>
+          <div class="hint">Le départ se calcule automatiquement (arrivée + heures dues + pause).</div>
         </div>
         <div class="card" style="max-width:620px"><div class="card-h"><span class="d"></span>Seuils légaux (LTr)</div>
           <div class="row2"><div class="field"><label for="maxWeek" class="sublbl">Max h / sem</label><input type="number" id="maxWeek" value="45" min="0" step="1"></div><div class="field"><label for="restHours" class="sublbl">Repos min. (h)</label><input type="number" id="restHours" value="11" min="0" step="0.5"></div></div>
@@ -301,12 +336,34 @@
   </div>
 </div>
 <div class="toast" id="toast"></div>
+
+<!-- Modale fin de pointage -->
+<div class="modal-scrim" id="stopScrim">
+  <div class="modal">
+    <h3>Fin de journée</h3>
+    <p class="modal-sub" id="stopSummary">—</p>
+    <label style="margin-bottom:8px">Quelle a été ta pause ?</label>
+    <div class="pausebtns" id="stopPauseBtns">
+      <button type="button" class="pausebtn" data-min="0">0</button>
+      <button type="button" class="pausebtn" data-min="30">30 min</button>
+      <button type="button" class="pausebtn" data-min="45">45 min</button>
+      <button type="button" class="pausebtn on" data-min="60">60 min</button>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-light-2" id="stopCancel">Annuler</button>
+      <button class="btn btn-primary" id="stopConfirm">Enregistrer</button>
+    </div>
+  </div>
+</div>
 <script>
 const KEY='badgheure_v1', SET='badgheure_set', PUNCH='badgheure_punch';
 let entries = load(KEY,[]);
-let settings = load(SET,{target:8.4,weekhours:42,maxWeek:45,restHours:11,defStart:'08:00',defPauseStart:'12:00',defPauseEnd:'13:00'});
+let settings = load(SET,{target:8.4,weekhours:42,maxWeek:45,restHours:11,defStart:'08:00',defPauseMin:60});
+// migration ancien format (heures de pause par défaut) -> minutes
+if(settings.defPauseStart!==undefined){const a=settings.defPauseStart,b=settings.defPauseEnd;if(a&&b){let d=toMinSafe(b)-toMinSafe(a);if(d<0)d+=1440;settings.defPauseMin=Math.max(0,d)}delete settings.defPauseStart;delete settings.defPauseEnd;save(SET,settings)}
+function toMinSafe(t){if(!t)return 0;const[a,b]=t.split(':').map(Number);return a*60+b}
 let punch = load(PUNCH,null);
-let weekOffset = 0, noPause = false;
+let weekOffset = 0, currentPause = 60;
 function load(k,def){try{return JSON.parse(localStorage.getItem(k))??def}catch{return def}}
 function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1900)}
@@ -372,9 +429,13 @@ function dayBar(e){
   let s=toMin(e.start),en=toMin(e.end);if(en<s)en+=dayMin;
   const wl=Math.min(100,(s/dayMin)*100), ww=Math.min(100-wl,((en-s)/dayMin)*100);
   let brk='';
-  if(e.pauseStart&&e.pauseEnd){let ps=toMin(e.pauseStart),pe=toMin(e.pauseEnd);if(pe<ps)pe+=dayMin;
-    const bl=(ps/dayMin)*100, bw=((pe-ps)/dayMin)*100;
-    brk=`<div class="brk" style="left:${bl}%;width:${bw}%"></div>`;}
+  if(e.pauseStart&&e.pauseEnd){ // ancien format: heures exactes
+    let ps=toMin(e.pauseStart),pe=toMin(e.pauseEnd);if(pe<ps)pe+=dayMin;
+    brk=`<div class="brk" style="left:${(ps/dayMin)*100}%;width:${((pe-ps)/dayMin)*100}%"></div>`;
+  }else if(e.pause>0){ // nouveau format: durée -> placée au milieu de la journée
+    const mid=(s+en)/2, ps=mid-e.pause/2;
+    brk=`<div class="brk" style="left:${(ps/dayMin)*100}%;width:${(e.pause/dayMin)*100}%"></div>`;
+  }
   return `<div class="tbar"><div class="work" style="left:${wl}%;width:${ww}%"></div>${brk}</div>`;
 }
 function renderCal(){
@@ -408,11 +469,10 @@ function renderCal(){
     if(ex&&['travail','teletravail'].includes(ex.type)){
       document.getElementById('start').value=ex.start;document.getElementById('start').dataset.touched='1';
       document.getElementById('end').value=ex.end;document.getElementById('end').dataset.manual='1';markEndAuto(true);
-      if(ex.pauseStart){document.getElementById('pauseStart').value=ex.pauseStart;document.getElementById('pauseStart').dataset.touched='1';}
-      if(ex.pauseEnd){document.getElementById('pauseEnd').value=ex.pauseEnd;document.getElementById('pauseEnd').dataset.touched='1';}
+      setPauseButtons(pauseMinOf(ex));
     }
     refreshPauseDur();refreshRecap();
-    document.querySelector('.nav-item[data-view="saisie"]').click();
+    document.querySelector('.nav-item[data-view="dash"]').click();
     toast('Journée du '+c.dataset.date.slice(8)+'.'+c.dataset.date.slice(5,7)+' prête à saisir');
   });
   renderCalDetail();
@@ -434,8 +494,8 @@ function refreshRecap(){
   const box=document.getElementById('recap');if(!box)return;
   const type=document.getElementById('type').value;
   const s=document.getElementById('start').value,en=document.getElementById('end').value;
-  const pause=noPause?0:pauseMinOf({pauseStart:document.getElementById('pauseStart').value,pauseEnd:document.getElementById('pauseEnd').value});
-  const e={type,start:s,end:en,pauseStart:noPause?'':document.getElementById('pauseStart').value,pauseEnd:noPause?'':document.getElementById('pauseEnd').value};
+  const pause=currentPause;
+  const e={type,start:s,end:en,pause};
   const n=net(e),solde=n-settings.target*60;
   document.getElementById('recapNet').textContent=fmtH(n);
   document.getElementById('recapBar').innerHTML=dayBar(e).replace('<div class="tbar">','').replace(/<\/div>$/,'');
@@ -484,17 +544,30 @@ function closeSide(){sidebar.classList.remove('open');scrim.classList.remove('sh
 document.getElementById('burger').onclick=openSide;scrim.onclick=closeSide;
 document.getElementById('btnAdd').onclick=()=>{
   const date=document.getElementById('d').value;if(!date){toast('Choisis une date');return}
-  const e={id:Date.now(),date,start:document.getElementById('start').value,end:document.getElementById('end').value,pauseStart:noPause?'':document.getElementById('pauseStart').value,pauseEnd:noPause?'':document.getElementById('pauseEnd').value,type:document.getElementById('type').value,note:document.getElementById('note').value.trim()};
+  const e={id:Date.now(),date,start:document.getElementById('start').value,end:document.getElementById('end').value,pause:currentPause,type:document.getElementById('type').value,note:document.getElementById('note').value.trim()};
   entries.push(e);save(KEY,entries);syncWeekTo(date);render();toast('Journée ajoutée');
-  // réinitialiser l'état pause pour la prochaine saisie
-  if(noPause){noPause=false;const ps=document.getElementById('pauseStart'),pe=document.getElementById('pauseEnd');ps.disabled=pe.disabled=false;document.getElementById('pauseToggle').textContent='Pas de pause ce jour';refreshPauseDur();}
-  const endEl=document.getElementById('end');delete endEl.dataset.manual;computeEnd();
-  document.querySelector('.nav-item[data-view="histo"]').click();};
+  const endEl=document.getElementById('end');delete endEl.dataset.manual;computeEnd();};
 function syncWeekTo(date){const t=new Date(date+'T00:00');const tm=new Date(t);tm.setDate(tm.getDate()-((t.getDay()+6)%7));tm.setHours(0,0,0,0);weekOffset=Math.round((tm-mondayOf(0))/(7*86400000))}
-function refreshPauseDur(){const d=document.getElementById('pauseDur');if(noPause){d.textContent='Aucune pause';d.style.color='var(--muted)';return}
-  const m=pauseMinOf({pauseStart:document.getElementById('pauseStart').value,pauseEnd:document.getElementById('pauseEnd').value});d.textContent=m?fmtH(m):'—';d.style.color='var(--brand)'}
-['pauseStart','pauseEnd'].forEach(id=>document.getElementById(id).addEventListener('input',()=>{document.getElementById(id).dataset.touched='1';refreshPauseDur()}));
-document.getElementById('pauseToggle').onclick=()=>{noPause=!noPause;const ps=document.getElementById('pauseStart'),pe=document.getElementById('pauseEnd');ps.disabled=pe.disabled=noPause;document.getElementById('pauseToggle').textContent=noPause?'Ajouter une pause':'Pas de pause ce jour';refreshPauseDur();computeEnd()};
+function refreshPauseDur(){const d=document.getElementById('pauseDur');d.textContent=currentPause?fmtH(currentPause):'Aucune';d.style.color=currentPause?'var(--brand)':'var(--muted)'}
+// boutons de pause rapides
+function setPauseButtons(min){
+  currentPause=min;
+  const custom=document.getElementById('pauseCustom');
+  const preset=[0,30,45,60].includes(min);
+  document.querySelectorAll('#pauseBtns .pausebtn').forEach(b=>{
+    const v=+b.dataset.min;
+    b.classList.toggle('on', v===min || (v===-1 && !preset));
+  });
+  custom.classList.toggle('show',!preset);
+  if(!preset)document.getElementById('pauseMin').value=min;
+  refreshPauseDur();computeEnd();
+}
+document.querySelectorAll('#pauseBtns .pausebtn').forEach(b=>b.onclick=()=>{
+  const v=+b.dataset.min;
+  if(v===-1){document.getElementById('pauseCustom').classList.add('show');document.querySelectorAll('#pauseBtns .pausebtn').forEach(x=>x.classList.remove('on'));b.classList.add('on');document.getElementById('pauseMin').focus();}
+  else setPauseButtons(v);
+});
+document.getElementById('pauseMin').addEventListener('input',()=>{currentPause=+document.getElementById('pauseMin').value||0;refreshPauseDur();computeEnd()});
 function updateDayBadge(){const ds=document.getElementById('d').value,dot=document.getElementById('bDot'),txt=document.getElementById('bTxt'),flag=document.getElementById('bFlag');
   if(!ds){txt.textContent='Choisis une date';dot.className='dot';flag.style.display='none';return}
   txt.textContent=new Date(ds+'T00:00').toLocaleDateString('fr-CH',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
@@ -506,7 +579,7 @@ function minToTime(m){m=((m%1440)+1440)%1440;return String(Math.floor(m/60)).pad
 function computeEnd(){
   const s=document.getElementById('start'),e=document.getElementById('end');
   if(!e.dataset.manual){
-    const pause=noPause?0:pauseMinOf({pauseStart:document.getElementById('pauseStart').value,pauseEnd:document.getElementById('pauseEnd').value});
+    const pause=currentPause;
     e.value=minToTime(toMin(s.value)+settings.target*60+pause);
     markEndAuto(false);
   }
@@ -519,46 +592,50 @@ function markEndAuto(manual){
 }
 // recalcul quand arrivée ou pause changent
 document.getElementById('start').addEventListener('input',computeEnd);
-['pauseStart','pauseEnd'].forEach(id=>document.getElementById(id).addEventListener('input',computeEnd));
 // si l'utilisateur édite le départ lui-même -> mode manuel
 document.getElementById('end').addEventListener('input',()=>{document.getElementById('end').dataset.manual='1';markEndAuto(true);refreshRecap()});
 document.getElementById('type').addEventListener('change',refreshRecap);
 function refreshPunch(){
   const lbl=document.getElementById('punchLabel'),tm=document.getElementById('punchTimer');
-  const bS=document.getElementById('btnStart'),bE=document.getElementById('btnStop'),bP=document.getElementById('btnPause');
-  if(punch){bS.style.display='none';bE.style.display='';bP.style.display='';
-    const now=Date.now();let paused=punch.pauseMs||0;if(punch.onBreakTs)paused+=now-punch.onBreakTs;const el=now-punch.startTs-paused;
-    if(punch.onBreakTs){bP.textContent='Reprendre';bP.className='btn btn-amber';lbl.textContent='En pause depuis '+new Date(punch.onBreakTs).toTimeString().slice(0,5)}
-    else{bP.textContent='Pause';bP.className='btn btn-light';const pm=Math.round(paused/60000);lbl.textContent='Démarré à '+punch.startHM+(pm?' · pause '+pm+'′':'')}
+  const bS=document.getElementById('btnStart'),bE=document.getElementById('btnStop');
+  if(punch){bS.style.display='none';bE.style.display='';
+    const el=Date.now()-punch.startTs;
+    lbl.textContent='Démarré à '+punch.startHM+' · la pause sera demandée à l\u2019arrêt';
     tm.textContent=fmtH(Math.max(0,el/60000));
-  }else{bS.style.display='';bE.style.display='none';bP.style.display='none';lbl.textContent='Pas de session en cours';tm.textContent='—'}}
-document.getElementById('btnStart').onclick=()=>{const n=new Date();punch={startTs:n.getTime(),startHM:n.toTimeString().slice(0,5),pauseMs:0,onBreakTs:null};save(PUNCH,punch);refreshPunch();toast('Pointage démarré')};
-document.getElementById('btnPause').onclick=()=>{if(!punch)return;
-  if(punch.onBreakTs){punch.pauseMs=(punch.pauseMs||0)+(Date.now()-punch.onBreakTs);punch.onBreakTs=null;save(PUNCH,punch);refreshPunch();toast('Reprise')}
-  else{punch.onBreakTs=Date.now();save(PUNCH,punch);refreshPunch();toast('Pause démarrée')}};
-document.getElementById('btnStop').onclick=()=>{if(!punch)return;const now=new Date();
-  let pMs=punch.pauseMs||0;if(punch.onBreakTs)pMs+=now.getTime()-punch.onBreakTs;const pMin=Math.round(pMs/60000);
-  let ps='',pe='';if(pMin>0){const mid=punch.startTs+(now.getTime()-punch.startTs)/2;ps=new Date(mid-pMs/2).toTimeString().slice(0,5);pe=new Date(mid+pMs/2).toTimeString().slice(0,5)}
-  entries.push({id:Date.now(),date:iso(now),start:punch.startHM,end:now.toTimeString().slice(0,5),pauseStart:ps,pauseEnd:pe,type:'travail',note:'pointage'});
-  save(KEY,entries);punch=null;save(PUNCH,punch);weekOffset=0;render();refreshPunch();toast('Session enregistrée')};
+  }else{bS.style.display='';bE.style.display='none';lbl.textContent='Pas de session en cours';tm.textContent='—'}}
+document.getElementById('btnStart').onclick=()=>{const n=new Date();punch={startTs:n.getTime(),startHM:n.toTimeString().slice(0,5)};save(PUNCH,punch);refreshPunch();toast('Pointage démarré')};
+// Arrêt -> modale de choix de pause
+let stopPause=60;
+document.getElementById('btnStop').onclick=()=>{if(!punch)return;
+  const now=new Date();const brut=Math.round((now.getTime()-punch.startTs)/60000);
+  document.getElementById('stopSummary').textContent=punch.startHM+' → '+now.toTimeString().slice(0,5)+' · '+fmtH(brut)+' de présence';
+  stopPause=60;document.querySelectorAll('#stopPauseBtns .pausebtn').forEach(b=>b.classList.toggle('on',+b.dataset.min===60));
+  document.getElementById('stopScrim').classList.add('show');
+};
+document.querySelectorAll('#stopPauseBtns .pausebtn').forEach(b=>b.onclick=()=>{stopPause=+b.dataset.min;document.querySelectorAll('#stopPauseBtns .pausebtn').forEach(x=>x.classList.toggle('on',x===b))});
+document.getElementById('stopCancel').onclick=()=>document.getElementById('stopScrim').classList.remove('show');
+document.getElementById('stopConfirm').onclick=()=>{if(!punch)return;const now=new Date();
+  entries.push({id:Date.now(),date:iso(now),start:punch.startHM,end:now.toTimeString().slice(0,5),pause:stopPause,type:'travail',note:'pointage'});
+  save(KEY,entries);punch=null;save(PUNCH,punch);weekOffset=0;render();refreshPunch();
+  document.getElementById('stopScrim').classList.remove('show');toast('Session enregistrée')};
 document.getElementById('prevWeek').onclick=()=>{weekOffset--;render()};
 document.getElementById('nextWeek').onclick=()=>{weekOffset++;render()};
 document.getElementById('calPrev').onclick=()=>{weekOffset--;render()};
 document.getElementById('calNext').onclick=()=>{weekOffset++;render()};
 document.getElementById('calToday').onclick=()=>{weekOffset=0;render()};
-const numF=['target','weekhours','maxWeek','restHours'],txtF=['defStart','defPauseStart','defPauseEnd'];
-numF.forEach(id=>{const el=document.getElementById(id);el.value=settings[id];el.oninput=()=>{settings[id]=+el.value||0;save(SET,settings);applyDefaults();render()}});
-txtF.forEach(id=>{const el=document.getElementById(id);el.value=settings[id];el.oninput=()=>{settings[id]=el.value;save(SET,settings);applyDefaults()}});
-function applyDefaults(){const s=document.getElementById('start'),ps=document.getElementById('pauseStart'),pe=document.getElementById('pauseEnd');
-  if(!s.dataset.touched)s.value=settings.defStart;if(!ps.dataset.touched)ps.value=settings.defPauseStart;if(!pe.dataset.touched)pe.value=settings.defPauseEnd;refreshPauseDur();computeEnd()}
+const numF=['target','weekhours','maxWeek','restHours','defPauseMin'],txtF=['defStart'];
+numF.forEach(id=>{const el=document.getElementById(id);if(!el)return;el.value=settings[id];el.oninput=()=>{settings[id]=+el.value||0;save(SET,settings);applyDefaults();render()}});
+txtF.forEach(id=>{const el=document.getElementById(id);if(!el)return;el.value=settings[id];el.oninput=()=>{settings[id]=el.value;save(SET,settings);applyDefaults()}});
+function applyDefaults(){const s=document.getElementById('start');
+  if(!s.dataset.touched)s.value=settings.defStart;computeEnd()}
 document.getElementById('btnBackup').onclick=()=>{const b=new Blob([JSON.stringify({entries,settings},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='badgheure_'+iso(new Date())+'.json';a.click();toast('Sauvegarde exportée')};
 document.getElementById('btnRestore').onclick=()=>document.getElementById('fileRestore').click();
 document.getElementById('fileRestore').onchange=ev=>{const f=ev.target.files[0];if(!f)return;const r=new FileReader();
   r.onload=()=>{try{const d=JSON.parse(r.result);if(Array.isArray(d.entries))entries=d.entries;if(d.settings)settings=Object.assign(settings,d.settings);save(KEY,entries);save(SET,settings);numF.concat(txtF).forEach(id=>document.getElementById(id).value=settings[id]);render();toast('Sauvegarde importée')}catch{toast('Fichier invalide')}};r.readAsText(f);ev.target.value=''};
 document.getElementById('btnClear').onclick=()=>{if(confirm('Supprimer toutes les journées ?')){entries=[];save(KEY,entries);render();toast('Tout est vidé')}};
 document.getElementById('btnCsv').onclick=()=>{if(!entries.length){toast('Rien à exporter');return}
-  const rows=[['Date','Jour','Arrivée','Départ','Pause début','Pause fin','Pause(min)','Net(min)','Solde(min)','Type','Note']];
-  [...entries].sort((a,b)=>a.date.localeCompare(b.date)).forEach(e=>{const n=net(e);rows.push([e.date,dayName(e.date),e.start,e.end,e.pauseStart||'',e.pauseEnd||'',pauseMinOf(e),Math.round(n),Math.round(n-settings.target*60),e.type,e.note||''])});
+  const rows=[['Date','Jour','Arrivée','Départ','Pause(min)','Net(min)','Solde(min)','Type','Note']];
+  [...entries].sort((a,b)=>a.date.localeCompare(b.date)).forEach(e=>{const n=net(e);rows.push([e.date,dayName(e.date),e.start,e.end,pauseMinOf(e),Math.round(n),Math.round(n-settings.target*60),e.type,e.note||''])});
   const csv='\uFEFF'+rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(';')).join('\n');
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='horaires_'+iso(new Date())+'.csv';a.click();toast('CSV exporté')};
 function tick(){const n=new Date();
@@ -571,9 +648,7 @@ function tick(){const n=new Date();
   refreshPunch();}
 document.getElementById('d').value=iso(new Date());
 document.getElementById('start').value=settings.defStart;
-document.getElementById('pauseStart').value=settings.defPauseStart;
-document.getElementById('pauseEnd').value=settings.defPauseEnd;
-updateDayBadge();refreshPauseDur();computeEnd();
+updateDayBadge();setPauseButtons(settings.defPauseMin);computeEnd();
 setInterval(tick,1000);tick();render();
 </script>
 </body>
