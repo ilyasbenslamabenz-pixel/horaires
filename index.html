@@ -12,7 +12,19 @@
     --amber:#d97706;--amber-soft:#fdf3e7;--red:#dc2626;--red-soft:#fdecec;--cyan:#06b6d4;
     --r:16px;--shadow:0 1px 2px rgba(14,26,43,.05),0 6px 20px rgba(14,26,43,.08);
   }
-  *{box-sizing:border-box;margin:0;padding:0}
+  body.dark{
+    --bg:#0a1420;--panel:#111f2e;--nav:#080f18;--nav-hover:#152534;
+    --nav-text:#8fa3b8;--nav-title:#4a5f73;--ink:#e6edf5;--muted:#8a99ab;--line:#22303f;
+    --brand:#22d3ee;--brand-soft:#0e2b33;--green:#34d399;--green-soft:#0e2a1f;
+    --amber:#fbbf24;--amber-soft:#2e2410;--red:#f87171;--red-soft:#2e1515;--cyan:#22d3ee;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.35);
+  }
+  body.dark input,body.dark select{background:#0c1826;color:var(--ink)}
+  body.dark .pause-box{background:#0c1826}
+  body.dark .pausebtn{background:#0c1826}
+  body.dark .recap{background:linear-gradient(145deg,#0e2430,#0c1826)}
+  body.dark .stat,body.dark .cal-day{background:var(--panel)}
+  body.dark .cal-day.we{background:#0d1a26}
   html{-webkit-text-size-adjust:100%}
   body{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
   .app{display:flex;min-height:100vh}
@@ -41,6 +53,9 @@
   .topbar .clock .t{font-variant-numeric:tabular-nums;font-weight:700;font-size:1.05rem;letter-spacing:-.01em;line-height:1}
   .topbar .clock .d{font-size:.72rem;color:var(--muted);text-transform:capitalize}
   .topbar .badge-ib{width:38px;height:38px;border-radius:10px;background:var(--brand-soft);color:var(--brand);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem}
+  .themebtn{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s}
+  .themebtn:hover{color:var(--brand);border-color:var(--brand)}
+  .themebtn svg{width:19px;height:19px}
   .content{padding:26px;max-width:1080px;width:100%}
   .page-head{margin-bottom:22px}
   .page-head h1{font-size:1.5rem;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
@@ -59,16 +74,16 @@
   .stat .k svg{width:14px;height:14px}
   .stat .v{font-size:1.55rem;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:6px}
   .stat .v.pos{color:var(--green)}.stat .v.neg{color:var(--red)}
-  .punch{background:linear-gradient(145deg,#0d1b2a,#0e7490);color:#fff;border:none}
-  .punch .card-h{color:rgba(255,255,255,.6)}.punch .card-h .d{background:#67e8f9}
-  .punch-day{display:flex;align-items:baseline;gap:12px;margin-bottom:16px;flex-wrap:wrap}
-  .punch-day .n{font-size:2.4rem;font-weight:800;line-height:1;letter-spacing:-.03em}
-  .punch-day .t{font-size:.95rem;color:rgba(255,255,255,.8);text-transform:capitalize}
+  .punch{background:linear-gradient(145deg,#0d1b2a,#0e7490);color:#fff;border:none;padding:18px 22px}
+  .punch .card-h{color:rgba(255,255,255,.6);margin-bottom:12px}.punch .card-h .d{background:#67e8f9}
+  .punch-day{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+  .punch-day .n{font-size:2rem;font-weight:800;line-height:1;letter-spacing:-.03em}
+  .punch-day .t{font-size:.9rem;color:rgba(255,255,255,.8);text-transform:capitalize}
   .punch-day .pill{font-size:.68rem;font-weight:700;padding:3px 11px;border-radius:20px;background:#fbbf24;color:#0d1b2a}
   .punch-day .pill.we{background:rgba(255,255,255,.18);color:#fff}
   .punch-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-  .punch-state b{display:block;font-size:1.6rem;font-variant-numeric:tabular-nums;font-weight:700;letter-spacing:-.01em}
-  .punch-state span{font-size:.85rem;color:rgba(255,255,255,.75)}
+  .punch-state b{display:block;font-size:1.4rem;font-variant-numeric:tabular-nums;font-weight:700;letter-spacing:-.01em}
+  .punch-state span{font-size:.82rem;color:rgba(255,255,255,.75)}
   .punch-btns{display:flex;gap:10px;flex-wrap:wrap}
   .btn{border:none;border-radius:11px;padding:12px 22px;font-size:.92rem;font-weight:600;cursor:pointer;font-family:inherit;transition:.1s;display:inline-flex;align-items:center;gap:7px}
   .btn:active{transform:translateY(1px)}.btn svg{width:17px;height:17px}
@@ -115,10 +130,30 @@
   .btn-light-2{background:#eef0f4;color:var(--ink)}
   .btn-light-2:hover{background:#e2e6ee}
   /* Layout fusionné dashboard */
-  .dash-cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:18px;align-items:start}
+  .dash-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
   @media(max-width:900px){.dash-cols{grid-template-columns:1fr}}
   .dash-cols .card{margin-bottom:0}
   .dash-right{display:flex;flex-direction:column;gap:18px}
+  .dash-right .stats{grid-template-columns:1fr 1fr;margin-bottom:0}
+  /* graphique tendance */
+  .trend{display:flex;align-items:flex-end;gap:12px;height:130px;padding-top:8px}
+  .trend .tcol{flex:1;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end;gap:6px}
+  .trend .tbarwrap{width:100%;flex:1;display:flex;align-items:flex-end;justify-content:center}
+  .trend .tb2{width:70%;max-width:42px;background:linear-gradient(180deg,var(--brand),var(--cyan));border-radius:6px 6px 0 0;min-height:3px;position:relative;transition:.3s}
+  .trend .tb2 .tv{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:.66rem;font-weight:700;color:var(--ink);white-space:nowrap}
+  .trend .tlbl{font-size:.66rem;color:var(--muted);font-weight:600;text-align:center;line-height:1.2}
+  .trend .tlbl b{display:block;color:var(--ink);font-size:.72rem}
+  /* périodes de taux */
+  .rate-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+  .rate-row .rf{flex:1.4}.rate-row .rp{flex:1;position:relative}
+  .rate-row input{width:100%}
+  .rate-row .pctwrap{position:relative}
+  .rate-row .pctwrap::after{content:'%';position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem;pointer-events:none}
+  .rate-row .rp input{padding-right:26px}
+  .rate-del{border:none;background:none;color:var(--muted);cursor:pointer;font-size:1rem;padding:6px 8px;border-radius:7px;flex:none}
+  .rate-del:hover{background:var(--red-soft);color:var(--red)}
+  .rate-del:disabled{opacity:.3;cursor:not-allowed}
+  .rate-since{font-size:.68rem;color:var(--muted);white-space:nowrap}
   .alert{display:flex;gap:11px;align-items:flex-start;font-size:.85rem;padding:12px 15px;border-radius:12px;border:1px solid;margin-bottom:10px}
   .alert.warn{background:var(--amber-soft);border-color:#f0d19a;color:#92500a}
   .alert.bad{background:var(--red-soft);border-color:#f0b4b4;color:#991b1b}
@@ -143,6 +178,8 @@
   .net.pos{color:var(--green);font-weight:700}.net.neg{color:var(--red);font-weight:700}
   .del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.95rem;padding:3px 7px;border-radius:7px}
   .del:hover{background:var(--red-soft);color:var(--red)}
+  .edit{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.95rem;padding:3px 7px;border-radius:7px;margin-right:2px}
+  .edit:hover{background:var(--brand-soft);color:var(--brand)}
   .empty{text-align:center;color:var(--muted);padding:32px;font-size:.9rem}
   @media(max-width:640px){.tablewrap{overflow-x:auto}table{min-width:600px}}
   .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--nav);color:#fff;padding:12px 22px;border-radius:12px;font-size:.88rem;font-weight:600;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.25s;z-index:60}
@@ -175,6 +212,39 @@
   .cal-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:.74rem;color:var(--muted)}
   .cal-legend span{display:inline-flex;align-items:center;gap:6px}
   .cal-legend i{width:14px;height:8px;border-radius:3px;display:inline-block}
+  .seg-toggle{display:inline-flex;background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:3px;gap:2px}
+  .seg-btn{border:none;background:none;padding:6px 14px;border-radius:7px;font-size:.82rem;font-weight:600;cursor:pointer;font-family:inherit;color:var(--muted)}
+  .seg-btn.on{background:var(--panel);color:var(--brand);box-shadow:var(--shadow)}
+  .cal-month{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+  .cal-mh{font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700;text-align:center;padding:4px 0}
+  .cal-cell{aspect-ratio:1;border:1px solid var(--line);border-radius:9px;padding:5px 6px;cursor:pointer;display:flex;flex-direction:column;transition:.1s;min-height:56px;position:relative;overflow:hidden}
+  .cal-cell:hover{border-color:var(--brand)}
+  .cal-cell.out{opacity:.35}
+  .cal-cell.today{border-color:var(--brand);box-shadow:0 0 0 1.5px var(--brand-soft)}
+  .cal-cell.we{background:var(--bg)}
+  .cal-cell.fe{background:var(--amber-soft)}
+  .cal-cell .cd{font-size:.8rem;font-weight:700}
+  .cal-cell .cn{font-size:.66rem;font-weight:700;font-variant-numeric:tabular-nums;margin-top:auto}
+  .cal-cell .cn.pos{color:var(--green)}.cal-cell .cn.neg{color:var(--red)}
+  .cal-cell .cdot{position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--brand)}
+  @media(max-width:600px){.cal-cell{min-height:44px;padding:3px}.cal-cell .cd{font-size:.7rem}.cal-cell .cn{font-size:.6rem}}
+  .seg-toggle{display:inline-flex;background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:2px}
+  .seg-btn{border:none;background:none;padding:6px 14px;border-radius:7px;font-size:.82rem;font-weight:600;cursor:pointer;font-family:inherit;color:var(--muted)}
+  .seg-btn.on{background:var(--panel);color:var(--brand);box-shadow:var(--shadow)}
+  /* grille mensuelle */
+  .cal-month{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+  .cmh{font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700;text-align:center;padding:4px 0}
+  .cmd{aspect-ratio:1;border:1px solid var(--line);border-radius:9px;padding:5px 6px;display:flex;flex-direction:column;cursor:pointer;transition:.1s;min-height:56px;overflow:hidden}
+  .cmd:hover{border-color:var(--brand)}
+  .cmd.out{opacity:.35}
+  .cmd.today{border-color:var(--brand);box-shadow:0 0 0 1px var(--brand)}
+  .cmd.we{background:var(--bg)}
+  .cmd.fe{background:var(--amber-soft)}
+  .cmd .cmn{font-size:.78rem;font-weight:700}
+  .cmd .cmnet{font-size:.66rem;font-weight:700;color:var(--brand);margin-top:auto;font-variant-numeric:tabular-nums}
+  .cmd .cmbar{height:4px;border-radius:3px;margin-top:3px;background:#eef0f6;overflow:hidden;position:relative}
+  .cmd .cmbar i{position:absolute;top:0;bottom:0;background:linear-gradient(90deg,#22d3ee,#0e7490);border-radius:3px}
+  @media(max-width:640px){.cmd{min-height:44px;padding:3px}.cmd .cmnet{font-size:.6rem}}
 
   /* Récap saisie live */
   .recap{background:linear-gradient(145deg,#f6f7fe,#eef0fe);border:1px solid var(--brand-soft);border-radius:13px;padding:14px 16px;margin-bottom:16px}
@@ -202,6 +272,14 @@
     .sidebar.open{transform:translateX(0)}
     .scrim.show{display:block}.burger{display:block}.content{padding:18px}
   }
+  @media print{
+    .sidebar,.topbar,.toolbar,.punch,.dash-cols>.card:first-child,.nav-item,.themebtn,.del,.edit,.cal-plus{display:none!important}
+    body{background:#fff}
+    .app,.main,.content{display:block;padding:0;margin:0;max-width:none}
+    .card{box-shadow:none;border:1px solid #ccc;break-inside:avoid}
+    .view{display:none!important}.view#view-histo{display:block!important}
+    @page{margin:1.5cm}
+  }
 </style>
 </head>
 <body>
@@ -228,6 +306,7 @@
     <div class="topbar">
       <button class="burger" id="burger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
       <div class="clock"><div class="t" id="liveClock">00:00:00</div><div class="d" id="liveDate">—</div></div>
+      <button class="themebtn" id="themeBtn" title="Mode sombre" aria-label="Basculer le thème"><svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
       <div class="badge-ib">IB</div>
     </div>
     <div class="content">
@@ -285,6 +364,10 @@
               <div class="card-h"><span class="d"></span>Détails</div>
               <div class="detail-grid" id="dashDetail"></div>
             </div>
+            <div class="card">
+              <div class="card-h"><span class="d"></span>Tendance — 4 dernières semaines</div>
+              <div class="trend" id="trend"></div>
+            </div>
             <div class="card"><div class="card-h"><span class="d"></span>Conformité (LTr)</div><div id="alerts"></div></div>
           </div>
         </div>
@@ -292,8 +375,9 @@
       <section class="view" id="view-cal">
         <div class="page-head"><h1><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Calendrier de la semaine</h1><p>Vue visuelle de tes journées. Clique un jour pour le saisir ou le modifier.</p></div>
         <div class="card">
-          <div class="toolbar"><div class="weeksel"><button id="calPrev">‹</button><span id="calLabel">Semaine</span><button id="calNext">›</button></div><div class="spacer"></div><button class="chip" id="calToday">Aujourd'hui</button></div>
+          <div class="toolbar"><div class="weeksel"><button id="calPrev">‹</button><span id="calLabel">Semaine</span><button id="calNext">›</button></div><div class="spacer"></div><div class="seg-toggle"><button class="seg-btn on" id="segWeek">Semaine</button><button class="seg-btn" id="segMonth">Mois</button></div><button class="chip" id="calToday">Aujourd'hui</button></div>
           <div class="cal-grid" id="calGrid"></div>
+          <div class="cal-month" id="calMonth" style="display:none"></div>
           <div class="cal-legend">
             <span><i style="background:linear-gradient(90deg,#22d3ee,#0e7490)"></i>Travail</span>
             <span><i style="background:repeating-linear-gradient(45deg,#fbbf24,#fbbf24 3px,#f59e0b 3px,#f59e0b 6px)"></i>Pause</span>
@@ -308,7 +392,7 @@
       <section class="view" id="view-histo">
         <div class="page-head"><h1><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18M7 14l4-4 3 3 5-6"/></svg>Historique</h1><p>Navigue semaine par semaine. Exporte en CSV pour ta compta ou tes RH.</p></div>
         <div class="card">
-          <div class="toolbar"><div class="weeksel"><button id="prevWeek">‹</button><span id="weekLabel">Semaine</span><button id="nextWeek">›</button></div><div class="spacer"></div><button class="chip" id="btnCsv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Exporter CSV</button></div>
+          <div class="toolbar"><div class="weeksel"><button id="prevWeek">‹</button><span id="weekLabel">Semaine</span><button id="nextWeek">›</button></div><div class="spacer"></div><button class="chip" id="btnFill">+ Remplir la semaine</button><button class="chip" id="btnPrint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>Imprimer</button><button class="chip" id="btnCsv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>CSV</button></div>
           <div class="tablewrap"><table><thead><tr><th>Jour</th><th>Date</th><th>Arr.</th><th>Dép.</th><th>Pause</th><th>Net</th><th>Solde</th><th>Type</th><th></th></tr></thead><tbody id="tbody"></tbody></table></div>
           <div class="empty" id="emptyMsg">Aucune journée cette semaine.</div>
         </div>
@@ -316,8 +400,14 @@
       <section class="view" id="view-params">
         <div class="page-head"><h1><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Paramètres</h1><p>Ton contrat, tes valeurs par défaut, les seuils légaux et la sauvegarde des données.</p></div>
         <div class="card" style="max-width:620px"><div class="card-h"><span class="d"></span>Contrat</div>
-          <div class="row2"><div class="field"><label for="target">Heures dues / jour</label><input type="number" id="target" value="8.4" min="0" step="0.1"></div><div class="field"><label for="weekhours">Heures / semaine</label><input type="number" id="weekhours" value="42" min="0" step="0.5"></div></div>
-          <div class="hint">42h/sem = 8,4h/j sur 5 jours (base secteur social GE).</div>
+          <div class="row2"><div class="field"><label for="fullDay">Heures d'un jour à 100%</label><input type="number" id="fullDay" value="8.4" min="0" step="0.1"></div><div class="field"><label for="weekhours">Heures / semaine (100%)</label><input type="number" id="weekhours" value="42" min="0" step="0.5"></div></div>
+          <div class="field"><label for="vacationDays">Jours de congé payé par an</label><input type="number" id="vacationDays" value="25" min="0" step="1"></div>
+          <div class="hint" style="margin-bottom:16px">Base à plein temps. Tes heures dues réelles suivent ton taux (voir ci-dessous).</div>
+
+          <label>Périodes de taux d'activité</label>
+          <div class="hint" style="margin:-2px 0 10px">Chaque journée utilise le taux en vigueur à sa date. Ajoute une période à la date de ton changement de contrat.</div>
+          <div id="ratesList"></div>
+          <button class="chip" id="addRate" style="margin-top:6px">+ Ajouter une période</button>
         </div>
         <div class="card" style="max-width:620px"><div class="card-h"><span class="d"></span>Valeurs par défaut de saisie</div>
           <div class="row2"><div class="field"><label for="defStart" class="sublbl">Arrivée</label><input type="time" id="defStart" value="08:00"></div><div class="field"><label for="defPauseMin" class="sublbl">Pause (min)</label><input type="number" id="defPauseMin" value="60" min="0" step="5"></div></div>
@@ -358,12 +448,26 @@
 <script>
 const KEY='badgheure_v1', SET='badgheure_set', PUNCH='badgheure_punch';
 let entries = load(KEY,[]);
-let settings = load(SET,{target:8.4,weekhours:42,maxWeek:45,restHours:11,defStart:'08:00',defPauseMin:60});
+let settings = load(SET,{target:8.4,weekhours:42,maxWeek:45,restHours:11,defStart:'08:00',defPauseMin:60,fullDay:8.4,rates:[{from:'0000-01-01',pct:100}],vacationDays:25,dark:false});
+// garantir la présence des périodes de taux (migration)
+if(!settings.rates||!settings.rates.length)settings.rates=[{from:'0000-01-01',pct:100}];
+if(settings.fullDay===undefined)settings.fullDay=settings.target||8.4;
+if(settings.vacationDays===undefined)settings.vacationDays=25;
+if(settings.dark===undefined)settings.dark=false;
+save(SET,settings);
+// heures dues (en minutes) pour une date donnée, selon la période de taux en vigueur
+function ratePctFor(date){
+  const sorted=[...settings.rates].sort((a,b)=>a.from.localeCompare(b.from));
+  let pct=sorted[0]?sorted[0].pct:100;
+  for(const r of sorted){if(date>=r.from)pct=r.pct;}
+  return pct;
+}
+function dueMin(date){return settings.fullDay*60*(ratePctFor(date)/100)}
 // migration ancien format (heures de pause par défaut) -> minutes
 if(settings.defPauseStart!==undefined){const a=settings.defPauseStart,b=settings.defPauseEnd;if(a&&b){let d=toMinSafe(b)-toMinSafe(a);if(d<0)d+=1440;settings.defPauseMin=Math.max(0,d)}delete settings.defPauseStart;delete settings.defPauseEnd;save(SET,settings)}
 function toMinSafe(t){if(!t)return 0;const[a,b]=t.split(':').map(Number);return a*60+b}
 let punch = load(PUNCH,null);
-let weekOffset = 0, currentPause = 60;
+let weekOffset = 0, currentPause = 60, calMode = 'week', monthOffset = 0;
 function load(k,def){try{return JSON.parse(localStorage.getItem(k))??def}catch{return def}}
 function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1900)}
@@ -378,7 +482,7 @@ function feriesGE(y){const e=easter(y),f={};const put=(dt,n)=>f[iso(dt)]=n;
 function ferieName(ds){return feriesGE(+ds.slice(0,4))[ds]||null}
 function toMin(t){if(!t)return 0;const[a,b]=t.split(':').map(Number);return a*60+b}
 function pauseMinOf(e){if(e.pauseStart&&e.pauseEnd){let d=toMin(e.pauseEnd)-toMin(e.pauseStart);if(d<0)d+=1440;return Math.max(0,d)}return e.pause||0}
-function net(e){if(['conges','maladie','ferie'].includes(e.type))return settings.target*60;let d=toMin(e.end)-toMin(e.start);if(d<0)d+=1440;return Math.max(0,d-pauseMinOf(e))}
+function net(e){if(['conges','maladie','ferie'].includes(e.type))return dueMin(e.date);let d=toMin(e.end)-toMin(e.start);if(d<0)d+=1440;return Math.max(0,d-pauseMinOf(e))}
 function fmtH(min){const s=min<0?'-':'';min=Math.abs(min);const h=Math.floor(min/60),m=Math.round(min%60);return s+h+'h'+String(m).padStart(2,'0')}
 function dayName(ds){return new Date(ds+'T00:00').toLocaleDateString('fr-CH',{weekday:'long'})}
 function isWeekend(ds){const d=new Date(ds+'T00:00').getDay();return d===0||d===6}
@@ -387,7 +491,9 @@ function weekEntries(){const mon=mondayOf(weekOffset),sun=addDays(mon,6);const a
 const ICO={clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
   bal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M5 8l7-5 7 5"/></svg>',
   cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',
-  up:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8M17 7h4v4"/></svg>'};
+  up:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8M17 7h4v4"/></svg>',
+  piggy:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 10c.7 0 1.3.2 1.9.5V8h-2.3A6.9 6.9 0 0 0 15 6.5V4l-2.5 1.5A9 9 0 0 0 11 5C6.6 5 3 8 3 11.5S6.6 18 11 18h.5L14 20v-2.3c1-.5 1.8-1.2 2.4-2.1H19a2 2 0 0 0 2-2v-1.6A2 2 0 0 0 19 10zM7 11h.01"/></svg>',
+  palm:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22V9M12 9c0-3 2-5 5-5M12 9c0-3-2-5-5-5M12 9c2-2 5-2 7 0M12 9c-2-2-5-2-7 0M8 22h8"/></svg>'};
 function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
 function render(){
   const wk=weekEntries();const mon=mondayOf(weekOffset),sun=addDays(mon,6);
@@ -395,30 +501,58 @@ function render(){
   const tb=document.getElementById('tbody');tb.innerHTML='';
   document.getElementById('emptyMsg').style.display=wk.length?'none':'block';
   let totNet=0,totSolde=0;
-  wk.forEach(e=>{const n=net(e),solde=n-settings.target*60;totNet+=n;totSolde+=solde;
+  wk.forEach(e=>{const n=net(e),solde=n-dueMin(e.date);totNet+=n;totSolde+=solde;
     const fn=ferieName(e.date),worked=['travail','teletravail'].includes(e.type);
     let tag=isWeekend(e.date)?'<span class="tag we">WE</span>':'<span class="tag n">'+({travail:'Trav.',teletravail:'TT',conges:'Congé',maladie:'Mal.',ferie:'Férié'}[e.type])+'</span>';
     if(fn)tag='<span class="tag fe">'+fn+'</span>';
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td style="text-transform:capitalize">${dayName(e.date)}</td><td>${e.date.slice(8)}.${e.date.slice(5,7)}</td><td>${worked?e.start:'—'}</td><td>${worked?e.end:'—'}</td><td>${worked?(pauseMinOf(e)?pauseMinOf(e)+'′':'—'):'—'}</td><td><b>${fmtH(n)}</b></td><td class="net ${solde>=0?'pos':'neg'}">${solde>=0?'+':''}${fmtH(solde)}</td><td>${tag}</td><td><button class="del" data-id="${e.id}">✕</button></td>`;
+    tr.innerHTML=`<td style="text-transform:capitalize">${dayName(e.date)}</td><td>${e.date.slice(8)}.${e.date.slice(5,7)}</td><td>${worked?e.start:'—'}</td><td>${worked?e.end:'—'}</td><td>${worked?(pauseMinOf(e)?pauseMinOf(e)+'′':'—'):'—'}</td><td><b>${fmtH(n)}</b></td><td class="net ${solde>=0?'pos':'neg'}">${solde>=0?'+':''}${fmtH(solde)}</td><td>${tag}</td><td style="white-space:nowrap"><button class="edit" data-date="${e.date}" title="Modifier">✎</button><button class="del" data-id="${e.id}" title="Supprimer">✕</button></td>`;
     tb.appendChild(tr);});
   tb.querySelectorAll('.del').forEach(b=>b.onclick=()=>{entries=entries.filter(x=>x.id!=b.dataset.id);save(KEY,entries);render();toast('Journée supprimée')});
+  tb.querySelectorAll('.edit').forEach(b=>b.onclick=()=>loadDayIntoForm(b.dataset.date));
   const days=wk.filter(e=>['travail','teletravail'].includes(e.type)).length;const ot=Math.max(0,totSolde);
-  // cumuls mois & année (référence = semaine affichée)
+  const weekObjective=wk.filter(e=>['travail','teletravail'].includes(e.type)).reduce((s,e)=>s+dueMin(e.date),0);
+  // cumuls mois & solde cumulé global (jusquà la fin de la semaine affichée)
   const ref=mondayOf(weekOffset);
   const monthNet=sumNet(e=>e.date.slice(0,7)===iso(ref).slice(0,7));
-  const yearNet=sumNet(e=>e.date.slice(0,4)===iso(ref).slice(0,4));
+  const cumulSolde=cumulativeBalance(iso(sun)); // report des heures sup jusquà cette semaine
   const avgDay=days?fmtH(totNet/days):'—';
   document.getElementById('stats').innerHTML=
     stat(ICO.clock,'Net semaine',fmtH(totNet),'', days?('moy. '+avgDay+'/jour'):'')+
-    stat(ICO.bal,'Solde semaine',(totSolde>=0?'+':'')+fmtH(totSolde),totSolde>=0?'pos':'neg', 'objectif '+fmtH(days*settings.target*60))+
+    stat(ICO.bal,'Solde semaine',(totSolde>=0?'+':'')+fmtH(totSolde),totSolde>=0?'pos':'neg', 'objectif '+fmtH(weekObjective))+
     stat(ICO.cal,'Cumul du mois',fmtH(monthNet),'', cap(ref.toLocaleDateString('fr-CH',{month:'long'})))+
-    stat(ICO.up,'Cumul '+iso(ref).slice(0,4),fmtH(yearNet),'', 'année en cours');
+    stat(ICO.piggy,'Solde cumulé',(cumulSolde>=0?'+':'')+fmtH(cumulSolde),cumulSolde>=0?'pos':'neg', 'heures sup. reportées');
   renderDashDetail(wk,totNet,totSolde,days);
   renderAlerts(wk,totNet);
+  renderTrend();
   renderCal();
 }
 function sumNet(pred){return entries.filter(pred).reduce((s,e)=>s+net(e),0)}
+// solde cumulé de toutes les journées jusquà dateISO inclus (report des heures sup)
+function cumulativeBalance(dateISO){
+  return entries.filter(e=>e.date<=dateISO).reduce((s,e)=>s+(net(e)-dueMin(e.date)),0);
+}
+// jours de congé payé pris dans lannée donnée
+function usedVacation(year){
+  return entries.filter(e=>e.type==='conges'&&e.date.slice(0,4)===String(year)).length;
+}
+// graphique des 4 dernières semaines (relatif à la semaine affichée)
+function renderTrend(){
+  const box=document.getElementById('trend');if(!box)return;
+  const weeks=[];
+  for(let w=3;w>=0;w--){
+    const mon=mondayOf(weekOffset-w),sun=addDays(mon,6);
+    const a=iso(mon),b=iso(sun);
+    const netW=entries.filter(e=>e.date>=a&&e.date<=b).reduce((s,e)=>s+net(e),0);
+    weeks.push({mon,netW});
+  }
+  const max=Math.max(...weeks.map(w=>w.netW),1);
+  box.innerHTML=weeks.map(w=>{
+    const h=Math.round(w.netW/max*100);
+    const lbl=w.mon.toLocaleDateString('fr-CH',{day:'2-digit',month:'2-digit'});
+    return `<div class="tcol"><div class="tbarwrap"><div class="tb2" style="height:${h}%"><span class="tv">${w.netW?fmtH(w.netW):''}</span></div></div><div class="tlbl">sem.<b>${lbl}</b></div></div>`;
+  }).join('');
+}
 function stat(ico,k,v,cls='',sub=''){return `<div class="stat"><div class="k">${ico}${k}</div><div class="v ${cls}">${v}</div>${sub?`<div class="sub2">${sub}</div>`:''}</div>`}
 function drow(k,v,cls=''){return `<div class="drow"><span class="dk">${k}</span><span class="dv ${cls}">${v}</span></div>`}
 /* ----- Calendrier ----- */
@@ -440,6 +574,9 @@ function dayBar(e){
 }
 function renderCal(){
   const grid=document.getElementById('calGrid');if(!grid)return;
+  const monthGrid=document.getElementById('calMonth');
+  if(calMode==='month'){grid.style.display='none';monthGrid.style.display='grid';renderMonth();renderCalDetail();return;}
+  grid.style.display='grid';if(monthGrid)monthGrid.style.display='none';
   const mon=mondayOf(weekOffset),sun=addDays(mon,6);
   document.getElementById('calLabel').textContent=mon.toLocaleDateString('fr-CH',{day:'2-digit',month:'short'})+' – '+sun.toLocaleDateString('fr-CH',{day:'2-digit',month:'short'});
   const todayISO=iso(new Date());
@@ -451,7 +588,7 @@ function renderCal(){
     let cls='cal-day';if(ds===todayISO)cls+=' today';if(we)cls+=' we';if(fn)cls+=' fe';
     let body;
     if(e){
-      const n=net(e),solde=n-settings.target*60;
+      const n=net(e),solde=n-dueMin(e.date);
       const worked=['travail','teletravail'].includes(e.type);
       body=(fn?`<div class="cal-fe-tag">${fn}</div>`:'')+
         `<div class="cal-net">${fmtH(n)}</div>`+dayBar(e)+
@@ -462,20 +599,57 @@ function renderCal(){
     html+=`<div class="${cls}" data-date="${ds}"><div class="cal-plus">+</div><div class="cal-dh"><span class="wd">${d.toLocaleDateString('fr-CH',{weekday:'short'})}</span><span class="dn">${d.getDate()}</span></div>${body}</div>`;
   }
   grid.innerHTML=html;
-  grid.querySelectorAll('.cal-day').forEach(c=>c.onclick=()=>{
-    document.getElementById('d').value=c.dataset.date;updateDayBadge();
-    // pré-remplir depuis l'entrée existante si présente
-    const ex=entries.find(x=>x.date===c.dataset.date);
-    if(ex&&['travail','teletravail'].includes(ex.type)){
+  grid.querySelectorAll('.cal-day').forEach(c=>c.onclick=()=>loadDayIntoForm(c.dataset.date));
+  renderCalDetail();
+}
+function renderMonth(){
+  const box=document.getElementById('calMonth');if(!box)return;
+  const base=new Date();base.setDate(1);base.setMonth(base.getMonth()+monthOffset);
+  const y=base.getFullYear(),m=base.getMonth();
+  document.getElementById('calLabel').textContent=cap(base.toLocaleDateString('fr-CH',{month:'long',year:'numeric'}));
+  const first=new Date(y,m,1);const startDow=(first.getDay()+6)%7; // lundi=0
+  const daysInMonth=new Date(y,m+1,0).getDate();
+  const todayISO=iso(new Date());
+  const wd=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+  let html=wd.map(w=>`<div class="cal-mh">${w}</div>`).join('');
+  // cases vides avant le 1er
+  const startCell=addDays(new Date(y,m,1),-startDow);
+  for(let i=0;i<42;i++){
+    const d=addDays(startCell,i);const ds=iso(d);const inMonth=d.getMonth()===m;
+    if(i>=35&&inMonth===false&&d>new Date(y,m,daysInMonth))break;
+    const e=entries.find(x=>x.date===ds);const fn=ferieName(ds);const we=isWeekend(ds);
+    let cls='cal-cell';if(!inMonth)cls+=' out';if(ds===todayISO)cls+=' today';if(we)cls+=' we';if(fn)cls+=' fe';
+    let inner=`<span class="cd">${d.getDate()}</span>`;
+    if(e){const n=net(e),solde=n-dueMin(e.date);inner+=`<span class="cdot"></span><span class="cn ${solde>=0?'pos':'neg'}">${solde>=0?'+':''}${fmtH(solde)}</span>`;}
+    html+=`<div class="${cls}" data-date="${ds}">${inner}</div>`;
+  }
+  box.innerHTML=html;
+  box.querySelectorAll('.cal-cell').forEach(c=>c.onclick=()=>loadDayIntoForm(c.dataset.date));
+}
+function setCalMode(mode){
+  calMode=mode;
+  document.getElementById('segWeek').classList.toggle('on',mode==='week');
+  document.getElementById('segMonth').classList.toggle('on',mode==='month');
+  render();
+}
+function loadDayIntoForm(dateISO){
+  document.getElementById('d').value=dateISO;updateDayBadge();
+  const ex=entries.find(x=>x.date===dateISO);
+  if(ex){
+    document.getElementById('type').value=ex.type;
+    if(['travail','teletravail'].includes(ex.type)){
       document.getElementById('start').value=ex.start;document.getElementById('start').dataset.touched='1';
       document.getElementById('end').value=ex.end;document.getElementById('end').dataset.manual='1';markEndAuto(true);
       setPauseButtons(pauseMinOf(ex));
     }
-    refreshPauseDur();refreshRecap();
-    document.querySelector('.nav-item[data-view="dash"]').click();
-    toast('Journée du '+c.dataset.date.slice(8)+'.'+c.dataset.date.slice(5,7)+' prête à saisir');
-  });
-  renderCalDetail();
+    document.getElementById('note').value=ex.note||'';
+    document.getElementById('btnAdd').textContent='Mettre à jour la journée';
+  }else{
+    document.getElementById('btnAdd').textContent='Ajouter la journée';
+  }
+  refreshPauseDur();refreshRecap();
+  document.querySelector('.nav-item[data-view="dash"]').click();
+  toast('Journée du '+dateISO.slice(8)+'.'+dateISO.slice(5,7)+' prête');
 }
 function renderCalDetail(){
   const box=document.getElementById('calDetail');if(!box)return;
@@ -484,7 +658,7 @@ function renderCalDetail(){
   const totPause=worked.reduce((s,e)=>s+pauseMinOf(e),0);
   const earliest=worked.reduce((m,e)=>Math.min(m,toMin(e.start)),1440);
   const latest=worked.reduce((m,e)=>{let en=toMin(e.end);if(en<toMin(e.start))en+=1440;return Math.max(m,en)},0);
-  const solde=totNet-worked.length*settings.target*60;
+  const solde=totNet-worked.reduce((s,e)=>s+dueMin(e.date),0);
   box.innerHTML=
     `<div>${drow('Total net semaine',fmtH(totNet))}${drow('Solde',(solde>=0?'+':'')+fmtH(solde),solde>=0?'net pos':'net neg')}${drow('Total pauses',fmtH(totPause))}</div>`+
     `<div>${drow('Jours saisis',worked.length)}${drow('Arrivée la + tôt',worked.length?minToTime(earliest):'—')}${drow('Départ le + tard',worked.length?minToTime(latest):'—')}</div>`;
@@ -495,8 +669,10 @@ function refreshRecap(){
   const type=document.getElementById('type').value;
   const s=document.getElementById('start').value,en=document.getElementById('end').value;
   const pause=currentPause;
-  const e={type,start:s,end:en,pause};
-  const n=net(e),solde=n-settings.target*60;
+  const date=document.getElementById('d').value||iso(new Date());
+  const e={type,start:s,end:en,pause,date};
+  const due=dueMin(date);
+  const n=net(e),solde=n-due;
   document.getElementById('recapNet').textContent=fmtH(n);
   document.getElementById('recapBar').innerHTML=dayBar(e).replace('<div class="tbar">','').replace(/<\/div>$/,'');
   document.getElementById('recapStart').textContent=['travail','teletravail'].includes(type)?s:'—';
@@ -505,7 +681,7 @@ function refreshRecap(){
   chips.innerHTML=
     `<span class="recap-chip">Pause <b>${pause?fmtH(pause):'0h00'}</b></span>`+
     `<span class="recap-chip">Solde <b style="color:${solde>=0?'var(--green)':'var(--red)'}">${solde>=0?'+':''}${fmtH(solde)}</b></span>`+
-    `<span class="recap-chip">Dues <b>${fmtH(settings.target*60)}</b></span>`;
+    `<span class="recap-chip">Dues <b>${fmtH(due)}</b></span>`;
 }
 function renderDashDetail(wk,totNet,totSolde,days){
   const worked=wk.filter(e=>['travail','teletravail'].includes(e.type));
@@ -516,9 +692,11 @@ function renderDashDetail(wk,totNet,totSolde,days){
   const abs=wk.filter(e=>['conges','maladie'].includes(e.type)).length;
   const left=document.getElementById('dashDetail');
   const pausePct=totBrut?Math.round(totPause/totBrut*100):0;
+  const yr=iso(mondayOf(weekOffset)).slice(0,4);
+  const usedV=usedVacation(yr);const remainV=settings.vacationDays-usedV;
   left.innerHTML=
     `<div>${drow('Temps de présence brut',fmtH(totBrut))}${drow('dont pause',fmtH(totPause)+' ('+pausePct+'%)')}${drow('Journée la plus longue',fmtH(longest))}</div>`+
-    `<div>${drow('Jours travaillés',days)}${drow('dont télétravail',tt)}${drow('Congé / maladie',abs)}</div>`;
+    `<div>${drow('Jours travaillés',days)}${drow('dont télétravail',tt)}${drow('Congés '+yr,usedV+' / '+settings.vacationDays+' pris',remainV<0?'net neg':'')}</div>`;
 }
 function renderAlerts(wk,totNet){
   const box=document.getElementById('alerts');const al=[];
@@ -532,6 +710,10 @@ function renderAlerts(wk,totNet){
   for(let i=1;i<sd.length;i++){const pe=new Date(sd[i-1].date+'T'+sd[i-1].end);if(toMin(sd[i-1].end)<toMin(sd[i-1].start))pe.setDate(pe.getDate()+1);
     const cs=new Date(sd[i].date+'T'+sd[i].start);const gap=(cs-pe)/3600000;
     if(gap>0&&gap<settings.restHours)al.push(['warn','!','Repos de '+gap.toFixed(1)+'h entre '+dayName(sd[i-1].date)+' et '+dayName(sd[i].date)+' : minimum '+settings.restHours+'h.']);}
+  // fériés de la semaine affichée
+  const mon=mondayOf(weekOffset);
+  for(let i=0;i<7;i++){const ds=iso(addDays(mon,i));const fn=ferieName(ds);
+    if(fn)al.push(['ok','🎉',cap(dayName(ds))+' '+ds.slice(8)+'.'+ds.slice(5,7)+' : '+fn+' (férié à Genève).']);}
   if(!al.length){box.innerHTML='<div class="empty-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>'+(wk.length?'Semaine conforme — rien à signaler.':'Aucune donnée cette semaine.')+'</p></div>';return}
   box.innerHTML=al.map(([c,i,m])=>`<div class="alert ${c}"><span class="i">${i}</span><span>${m}</span></div>`).join('');
 }
@@ -545,8 +727,13 @@ document.getElementById('burger').onclick=openSide;scrim.onclick=closeSide;
 document.getElementById('btnAdd').onclick=()=>{
   const date=document.getElementById('d').value;if(!date){toast('Choisis une date');return}
   const e={id:Date.now(),date,start:document.getElementById('start').value,end:document.getElementById('end').value,pause:currentPause,type:document.getElementById('type').value,note:document.getElementById('note').value.trim()};
-  entries.push(e);save(KEY,entries);syncWeekTo(date);render();toast('Journée ajoutée');
-  const endEl=document.getElementById('end');delete endEl.dataset.manual;computeEnd();};
+  const existIdx=entries.findIndex(x=>x.date===date);
+  let msg;
+  if(existIdx>=0){e.id=entries[existIdx].id;entries[existIdx]=e;msg='Journée mise à jour';}
+  else{entries.push(e);msg='Journée ajoutée';}
+  save(KEY,entries);syncWeekTo(date);render();toast(msg);
+  const endEl=document.getElementById('end');delete endEl.dataset.manual;computeEnd();
+  document.getElementById('btnAdd').textContent='Ajouter la journée';};
 function syncWeekTo(date){const t=new Date(date+'T00:00');const tm=new Date(t);tm.setDate(tm.getDate()-((t.getDay()+6)%7));tm.setHours(0,0,0,0);weekOffset=Math.round((tm-mondayOf(0))/(7*86400000))}
 function refreshPauseDur(){const d=document.getElementById('pauseDur');d.textContent=currentPause?fmtH(currentPause):'Aucune';d.style.color=currentPause?'var(--brand)':'var(--muted)'}
 // boutons de pause rapides
@@ -573,14 +760,15 @@ function updateDayBadge(){const ds=document.getElementById('d').value,dot=docume
   txt.textContent=new Date(ds+'T00:00').toLocaleDateString('fr-CH',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   const fn=ferieName(ds);if(fn){dot.className='dot fe';flag.className='flag fe';flag.style.display='';flag.textContent=fn}
   else if(isWeekend(ds)){dot.className='dot we';flag.className='flag we';flag.style.display='';flag.textContent='Week-end'}else{dot.className='dot';flag.style.display='none'}}
-document.getElementById('d').addEventListener('input',updateDayBadge);
+document.getElementById('d').addEventListener('input',()=>{updateDayBadge();computeEnd();});
 /* départ théorique = arrivée + heures dues + pause */
 function minToTime(m){m=((m%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(Math.round(m%60)).padStart(2,'0')}
 function computeEnd(){
   const s=document.getElementById('start'),e=document.getElementById('end');
   if(!e.dataset.manual){
     const pause=currentPause;
-    e.value=minToTime(toMin(s.value)+settings.target*60+pause);
+    const date=document.getElementById('d').value||iso(new Date());
+    e.value=minToTime(toMin(s.value)+dueMin(date)+pause);
     markEndAuto(false);
   }
   refreshRecap();
@@ -620,22 +808,72 @@ document.getElementById('stopConfirm').onclick=()=>{if(!punch)return;const now=n
   document.getElementById('stopScrim').classList.remove('show');toast('Session enregistrée')};
 document.getElementById('prevWeek').onclick=()=>{weekOffset--;render()};
 document.getElementById('nextWeek').onclick=()=>{weekOffset++;render()};
-document.getElementById('calPrev').onclick=()=>{weekOffset--;render()};
-document.getElementById('calNext').onclick=()=>{weekOffset++;render()};
-document.getElementById('calToday').onclick=()=>{weekOffset=0;render()};
-const numF=['target','weekhours','maxWeek','restHours','defPauseMin'],txtF=['defStart'];
-numF.forEach(id=>{const el=document.getElementById(id);if(!el)return;el.value=settings[id];el.oninput=()=>{settings[id]=+el.value||0;save(SET,settings);applyDefaults();render()}});
+document.getElementById('calPrev').onclick=()=>{if(calMode==='month')monthOffset--;else weekOffset--;render()};
+document.getElementById('calNext').onclick=()=>{if(calMode==='month')monthOffset++;else weekOffset++;render()};
+document.getElementById('calToday').onclick=()=>{weekOffset=0;monthOffset=0;render()};
+document.getElementById('segWeek').onclick=()=>setCalMode('week');
+document.getElementById('segMonth').onclick=()=>setCalMode('month');
+const numF=['fullDay','weekhours','maxWeek','restHours','defPauseMin','vacationDays'],txtF=['defStart'];
+numF.forEach(id=>{const el=document.getElementById(id);if(!el)return;el.value=settings[id];el.oninput=()=>{settings[id]=+el.value||0;save(SET,settings);applyDefaults();render();if(id==='fullDay')renderRates()}});
 txtF.forEach(id=>{const el=document.getElementById(id);if(!el)return;el.value=settings[id];el.oninput=()=>{settings[id]=el.value;save(SET,settings);applyDefaults()}});
 function applyDefaults(){const s=document.getElementById('start');
   if(!s.dataset.touched)s.value=settings.defStart;computeEnd()}
-document.getElementById('btnBackup').onclick=()=>{const b=new Blob([JSON.stringify({entries,settings},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='badgheure_'+iso(new Date())+'.json';a.click();toast('Sauvegarde exportée')};
+/* ----- Périodes de taux ----- */
+function renderRates(){
+  const box=document.getElementById('ratesList');if(!box)return;
+  const rates=[...settings.rates].sort((a,b)=>a.from.localeCompare(b.from));
+  settings.rates=rates;
+  box.innerHTML=rates.map((r,i)=>{
+    const isFirst=i===0;
+    const dueH=(settings.fullDay*(r.pct/100)).toFixed(2).replace(/\.?0+$/,'');
+    return `<div class="rate-row" data-i="${i}">
+      <div class="rf field" style="margin:0">
+        ${isFirst?'<span class="rate-since">Depuis le début</span>':`<input type="date" class="r-from" value="${r.from}">`}
+      </div>
+      <div class="rp field pctwrap" style="margin:0"><input type="number" class="r-pct" value="${r.pct}" min="0" max="100" step="5"></div>
+      <span class="rate-since">${dueH}h/j</span>
+      <button class="rate-del" ${isFirst?'disabled title="La première période ne peut pas être supprimée"':''}>✕</button>
+    </div>`;
+  }).join('');
+  // listeners
+  box.querySelectorAll('.rate-row').forEach(row=>{
+    const i=+row.dataset.i;
+    const from=row.querySelector('.r-from'),pct=row.querySelector('.r-pct'),del=row.querySelector('.rate-del');
+    if(from)from.onchange=()=>{settings.rates[i].from=from.value||'0000-01-01';save(SET,settings);renderRates();render();};
+    if(pct)pct.oninput=()=>{settings.rates[i].pct=Math.max(0,Math.min(100,+pct.value||0));save(SET,settings);render();
+      const s=row.querySelectorAll('.rate-since');const lbl=s[s.length-1];if(lbl)lbl.textContent=(settings.fullDay*(settings.rates[i].pct/100)).toFixed(2).replace(/\.?0+$/,'')+'h/j';};
+    if(del&&!del.disabled)del.onclick=()=>{settings.rates.splice(i,1);save(SET,settings);renderRates();render();toast('Période supprimée');};
+  });
+}
+document.getElementById('addRate').onclick=()=>{
+  const d=new Date();const def=iso(d);
+  settings.rates.push({from:def,pct:50});save(SET,settings);renderRates();render();toast('Période ajoutée');
+};
+document.getElementById('btnBackup').onclick=()=>{const b=new Blob([JSON.stringify({entries,settings},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='badgheure_'+iso(new Date())+'.json';a.click();settings.lastBackup=iso(new Date());save(SET,settings);toast('Sauvegarde exportée')};
 document.getElementById('btnRestore').onclick=()=>document.getElementById('fileRestore').click();
 document.getElementById('fileRestore').onchange=ev=>{const f=ev.target.files[0];if(!f)return;const r=new FileReader();
-  r.onload=()=>{try{const d=JSON.parse(r.result);if(Array.isArray(d.entries))entries=d.entries;if(d.settings)settings=Object.assign(settings,d.settings);save(KEY,entries);save(SET,settings);numF.concat(txtF).forEach(id=>document.getElementById(id).value=settings[id]);render();toast('Sauvegarde importée')}catch{toast('Fichier invalide')}};r.readAsText(f);ev.target.value=''};
+  r.onload=()=>{try{const d=JSON.parse(r.result);if(Array.isArray(d.entries))entries=d.entries;if(d.settings)settings=Object.assign(settings,d.settings);if(!settings.rates||!settings.rates.length)settings.rates=[{from:'0000-01-01',pct:100}];save(KEY,entries);save(SET,settings);numF.concat(txtF).forEach(id=>{const el=document.getElementById(id);if(el)el.value=settings[id]});renderRates();render();toast('Sauvegarde importée')}catch{toast('Fichier invalide')}};r.readAsText(f);ev.target.value=''};
+/* ----- Remplir la semaine ----- */
+document.getElementById('btnFill').onclick=()=>{
+  const mon=mondayOf(weekOffset);let added=0;
+  for(let i=0;i<5;i++){ // lun-ven
+    const d=addDays(mon,i),ds=iso(d);
+    if(entries.some(e=>e.date===ds))continue; // ne pas écraser
+    if(ferieName(ds))continue; // sauter fériés
+    const pause=settings.defPauseMin;
+    const end=minToTime(toMin(settings.defStart)+dueMin(ds)+pause);
+    entries.push({id:Date.now()+i,date:ds,start:settings.defStart,end,pause,type:'travail',note:''});
+    added++;
+  }
+  if(added){save(KEY,entries);render();toast(added+' jour'+(added>1?'s':'')+' ajouté'+(added>1?'s':''));}
+  else toast('Semaine déjà complète');
+};
+/* ----- Impression / PDF ----- */
+document.getElementById('btnPrint').onclick=()=>{document.querySelector('.nav-item[data-view="histo"]').click();setTimeout(()=>window.print(),150)};
 document.getElementById('btnClear').onclick=()=>{if(confirm('Supprimer toutes les journées ?')){entries=[];save(KEY,entries);render();toast('Tout est vidé')}};
 document.getElementById('btnCsv').onclick=()=>{if(!entries.length){toast('Rien à exporter');return}
   const rows=[['Date','Jour','Arrivée','Départ','Pause(min)','Net(min)','Solde(min)','Type','Note']];
-  [...entries].sort((a,b)=>a.date.localeCompare(b.date)).forEach(e=>{const n=net(e);rows.push([e.date,dayName(e.date),e.start,e.end,pauseMinOf(e),Math.round(n),Math.round(n-settings.target*60),e.type,e.note||''])});
+  [...entries].sort((a,b)=>a.date.localeCompare(b.date)).forEach(e=>{const n=net(e);rows.push([e.date,dayName(e.date),e.start,e.end,pauseMinOf(e),Math.round(n),Math.round(n-dueMin(e.date)),e.type,e.note||''])});
   const csv='\uFEFF'+rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(';')).join('\n');
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='horaires_'+iso(new Date())+'.csv';a.click();toast('CSV exporté')};
 function tick(){const n=new Date();
@@ -648,7 +886,24 @@ function tick(){const n=new Date();
   refreshPunch();}
 document.getElementById('d').value=iso(new Date());
 document.getElementById('start').value=settings.defStart;
-updateDayBadge();setPauseButtons(settings.defPauseMin);computeEnd();
+/* ----- Mode sombre ----- */
+function applyTheme(){
+  document.body.classList.toggle('dark',settings.dark);
+  const ic=document.getElementById('themeIcon');
+  if(settings.dark)ic.innerHTML='<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
+  else ic.innerHTML='<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>';
+}
+document.getElementById('themeBtn').onclick=()=>{settings.dark=!settings.dark;save(SET,settings);applyTheme()};
+applyTheme();
+updateDayBadge();setPauseButtons(settings.defPauseMin);computeEnd();renderRates();
+// rappel de sauvegarde si données présentes et backup ancien/absent
+setTimeout(()=>{
+  if(entries.length>=5){
+    const last=settings.lastBackup;
+    const stale=!last||((new Date()-new Date(last+'T00:00'))/86400000>7);
+    if(stale)toast('💾 Pense à sauvegarder tes données (Paramètres → Sauvegarder)');
+  }
+},2500);
 setInterval(tick,1000);tick();render();
 </script>
 </body>
